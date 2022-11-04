@@ -7,8 +7,16 @@ public class Ray {
     public static final float MAX_T = Float.MAX_VALUE;
     Vector3D origin;
     Vector3D direction;
-    float t;
+
+    protected float t;
     Renderable object;
+
+    public float getT() {
+        return t;
+    }
+    public void setT(float t) {
+        this.t = t;
+    }
 
     public Ray(Vector3D eye, Vector3D dir) {
         origin = new Vector3D(eye);

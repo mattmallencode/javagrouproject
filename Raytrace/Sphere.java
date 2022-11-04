@@ -25,7 +25,7 @@ public class Sphere implements Renderable {
 
         // Do the following quick check to see if there is even a chance
         // that an intersection here might be closer than a previous one
-        if (v - radius > ray.t)
+        if (v - radius > ray.getT())
             return false;
 
         // Test if the ray actually intersects the sphere
@@ -36,10 +36,10 @@ public class Sphere implements Renderable {
         // Test if the intersection is in the positive
         // ray direction and it is the closest so far
         t = v - ((float) Math.sqrt(t));
-        if ((t > ray.t) || (t < 0))
+        if ((t > ray.getT()) || (t < 0))
             return false;
 
-        ray.t = t;
+        ray.setT(t); //= t;
         ray.object = this;
         return true;
     }
@@ -53,9 +53,9 @@ public class Sphere implements Renderable {
         //   2. a unit-length surface normal (n)
         //   3. a unit-length vector towards the ray's origin (v)
         //
-        float px = ray.origin.x + ray.t * ray.direction.x;
-        float py = ray.origin.y + ray.t * ray.direction.y;
-        float pz = ray.origin.z + ray.t * ray.direction.z;
+        float px = ray.origin.x + ray.getT() * ray.direction.x;
+        float py = ray.origin.y + ray.getT() * ray.direction.y;
+        float pz = ray.origin.z + ray.getT() * ray.direction.z;
 
         Vector3D p = new Vector3D(px, py, pz);
         Vector3D v = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
