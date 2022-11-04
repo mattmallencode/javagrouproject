@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Ray {
-    public static final float MAX_T = Float.MAX_VALUE;
+    protected static final float MAX_T = Float.MAX_VALUE;
     Vector3D origin;
     Vector3D direction;
 
