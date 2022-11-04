@@ -135,10 +135,39 @@ class Light {
     public static final int DIRECTIONAL = 1;
     public static final int POINT = 2;
 
-    public int lightType;
-    public Vector3D lvec;           // the position of a point light or
+    private int lightType;
+    private Vector3D lvec;           // the position of a point light or
                                     // the direction to a directional light
-    public float ir, ig, ib;        // intensity of the light source
+    private float ir, ig, ib;        // intensity of the light source
+
+    public int getLightType(){
+        return lightType;
+    }
+
+    public void setLightType(int lt){
+        lightType = lt;
+    }
+
+    public float getir(){
+        return ir;
+    }
+    public void setir(float r){
+        ir = r;
+    }
+
+    public float getig(){
+        return ir;
+    }
+    public void setig(float g){
+        ig = g;
+    }
+
+    public float getib(){
+        return ib;
+    }
+    public void setib(float b){
+        ib = b;
+    }
 
     public Light(int type, Vector3D v, float r, float g, float b) {
         lightType = type;
