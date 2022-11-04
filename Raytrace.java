@@ -22,8 +22,7 @@ import java.util.List;
 
 // A simple vector class
 class Vector3D {
-    public float x, y, z;
-
+    private float x, y, z;
     // constructors
     public Vector3D( ) {
     }
@@ -272,14 +271,30 @@ abstract interface Renderable {
 class Sphere implements Renderable {
     Surface surface;
     Vector3D center;
-    float radius;
-    float radSqr;
+    private float radius;
+    private float radSqr;
 
     public Sphere(Surface s, Vector3D c, float r) {
         surface = s;
         center = c;
         radius = r;
         radSqr = r*r;
+    }
+
+    public float getRadius(){
+        return radius;
+    }
+
+    public void setRadius(float r){
+        radius = r;
+    }
+
+    public float getRadSqr(){
+        return radSqr;
+    }
+
+    public void setRadSqr(float rs){
+        radSqr = rs;
     }
 
     public boolean intersect(Ray ray) {
