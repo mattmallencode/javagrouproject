@@ -13,9 +13,9 @@ kr = reflectance coefficient
 ns phong exponent
  */
 public class Surface {
-    public float ir, ig, ib;        // surface's intrinsic color
-    public float ka, kd, ks, ns;    // constants for phong model
-    public float kt, kr, nt;
+    protected float ir, ig, ib;        // surface's intrinsic color
+    protected float ka, kd, ks, ns;    // constants for phong model
+    protected float kt, kr, nt;
     private static final float TINY = 0.001f;
     private static final float I255 = 0.00392156f;  // 1/255
 
