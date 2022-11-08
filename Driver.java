@@ -68,29 +68,58 @@ class Driver  {
     }
 
 	/**
-	 *
-	 * @param x value to serach for in the list
-	 * @param radius      the list to search (cannot be null)
-//	 * @throws IllegalArgumentException if list is null
+	 * add a new sphere to the driver
+	 * @param x X-position of the sphere
+	 * @param y Y-position of the sphere
+	 * @param z Z-position of the sphere
+	 * @param r radius of the sphere
 	 */
-
-	public final void addSphere(float x, float y, float z, float radius) {
+	public final void addSphere(float x, float y, float z, float r) {
 		Vector3D v = new Vector3D(x, y, z);
-		float r = radius;
 		objectList.add(new Sphere(currentSurface, v, r));
 	}
+
+	/**
+	 * set the position of the eye
+	 * @param x X-position of the eye
+	 * @param y Y-position of the eye
+	 * @param z Z-position of the eye
+	 */
 	public final void setEye(float x, float y, float z) {
 		eye = new Vector3D(x, y, z);
 	}
+	// not sure what lookat is :(
+	/**
+	 * set the position of lookat
+	 * @param x X-position
+	 * @param y Y-position
+	 * @param z Z-position
+	 */
 	public final void setLookat(float x, float y, float z) {
 		lookat = new Vector3D(x, y, z);
 	}
+	/**
+	 * set the position of up
+	 * @param x X-position
+	 * @param y Y-position
+	 * @param z Z-position
+	 */
 	public final void setUp(float x, float y, float z) {
         up = new Vector3D(x, y, z);
     }
+	/**
+	 * set the field of view
+	 * @param f fov
+	 */
 	public final void setFov(float f) {
             fov = f;
     }
+	/**
+	 * set the colour of the background
+	 * @param r red
+	 * @param g greed
+	 * @param b blue
+	 */
 	public final void setBackground(int r, int g, int b) {
         background = new Color(r, g, b);
     }
