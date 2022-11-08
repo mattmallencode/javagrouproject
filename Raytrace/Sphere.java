@@ -5,10 +5,10 @@ import java.util.List;
 
 // An example "Renderable" object
 public class Sphere implements Renderable {
-    Surface surface;
-    Vector3D center;
-    float radius;
-    float radSqr;
+    protected Surface surface;
+    protected Vector3D center;
+    protected float radius;
+    protected float radSqr;
 
     public Sphere(Surface s, Vector3D c, float r) {
         surface = s;
