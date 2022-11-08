@@ -73,7 +73,27 @@ class Driver  {
         return st.nval;
     }
 
-    void ReadInput(InputStream is) throws IOException {
+	void addSphere(float x, float y, float z, float radius) {
+		Vector3D v = new Vector3D(x, y, z);
+		float r = radius;
+		objectList.add(new Sphere(currentSurface, v, r));
+	}
+	void setEye(float x, float y, float z) {
+		eye = new Vector3D(x, y, z);
+	}
+	void setLookat(float x, float y, float z) {
+		lookat = new Vector3D(x, y, z);
+	}
+    void setUp(float x, float y, float z) {
+        up = new Vector3D(x, y, z);
+    }
+    void setFov(float f) {
+            fov = f;
+    }
+    void setBackground(int r, int g, int b) {
+        background = new Color(r, g, b);
+    }
+	void ReadInput(InputStream is) throws IOException {
 	    StreamTokenizer st = new StreamTokenizer(is);
     	st.commentChar('#');
         scan: while (true) {
