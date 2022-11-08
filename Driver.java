@@ -6,27 +6,21 @@ import java.util.List;
 
 class Driver  {
     final static int CHUNKSIZE = 100;
-    List<Object> objectList;
-    List<Object> lightList;
-    Surface currentSurface;
-	BufferedImage canvas;
-
-    Vector3D eye, lookat, up;
-    Vector3D Du, Dv, Vp;
-    float fov;
-
-    Color background;
-
-    int width, height;
+	static List<Object> objectList;
+	static List<Object> lightList;
+	static Surface currentSurface;
+	static BufferedImage canvas;
+	static Vector3D eye, lookat, up;
+	static Vector3D Du, Dv, Vp;
+	static float fov;
+	static Color background;
+	int width, height;
 
     public Driver(int width, int height, String dataFile) {
         this.width = width;
         this.height = height;
-
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
         fov = 30;               // default horizonal field of view
-
         // Initialize various lists
         objectList = new ArrayList<>(CHUNKSIZE);
         lightList = new ArrayList<>(CHUNKSIZE);
@@ -73,7 +67,63 @@ class Driver  {
         return st.nval;
     }
 
-    void ReadInput(InputStream is) throws IOException {
+	/**
+	 * add a new sphere to the driver
+	 * @param x X-position of the sphere
+	 * @param y Y-position of the sphere
+	 * @param z Z-position of the sphere
+	 * @param r radius of the sphere
+	 */
+	public final void addSphere(float x, float y, float z, float r) {
+		Vector3D v = new Vector3D(x, y, z);
+		objectList.add(new Sphere(currentSurface, v, r));
+	}
+
+	/**
+	 * set the position of the eye
+	 * @param x X-position of the eye
+	 * @param y Y-position of the eye
+	 * @param z Z-position of the eye
+	 */
+	public final void setEye(float x, float y, float z) {
+		eye = new Vector3D(x, y, z);
+	}
+	// not sure what lookat is :(
+	/**
+	 * set the position of lookat
+	 * @param x X-position
+	 * @param y Y-position
+	 * @param z Z-position
+	 */
+	public final void setLookat(float x, float y, float z) {
+		lookat = new Vector3D(x, y, z);
+	}
+	/**
+	 * set the position of up
+	 * @param x X-position
+	 * @param y Y-position
+	 * @param z Z-position
+	 */
+	public final void setUp(float x, float y, float z) {
+        up = new Vector3D(x, y, z);
+    }
+	/**
+	 * set the field of view
+	 * @param f fov
+	 */
+	public final void setFov(float f) {
+            fov = f;
+    }
+	/**
+	 * set the colour of the background
+	 * @param r red
+	 * @param g greed
+	 * @param b blue
+	 */
+	public final void setBackground(int r, int g, int b) {
+        background = new Color(r, g, b);
+    }
+	void ReadInput(InputStream is) throws IOException {
 	    StreamTokenizer st = new StreamTokenizer(is);
     	st.commentChar('#');
         scan: while (true) {
