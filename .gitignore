@@ -1,0 +1,7 @@
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+#from https://gist.github.com/dedunumax/54e82214715e35439227
