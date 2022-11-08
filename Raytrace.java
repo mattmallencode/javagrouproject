@@ -23,15 +23,14 @@ import java.util.List;
 // A simple vector class
 class Vector3D {
     public float x, y, z;
-
     // constructors
+
     public Vector3D( ) {
     }
 
     public Vector3D(float x, float y, float z) {
         this.x = x; this.y = y; this.z = z;
     }
-
     public Vector3D(Vector3D v) {
         x = v.x;
         y = v.y;
@@ -136,10 +135,49 @@ class Light {
     public static final int DIRECTIONAL = 1;
     public static final int POINT = 2;
 
-    public int lightType;
-    public Vector3D lvec;           // the position of a point light or
-                                    // the direction to a directional light
-    public float ir, ig, ib;        // intensity of the light source
+    protected int lightType;
+    private Vector3D lvec;           // the position of a point light or
+
+    // the direction to a directional light
+    private float ir;
+    private float ig;
+    private float ib;                // intensity of the light source
+
+    //getter and setters
+    public int getLightType() {
+        return lightType;
+    }
+    public void setLightType(int lightType) {
+        this.lightType = lightType;
+    }
+
+    public Vector3D getLvec() {
+        return lvec;
+    }
+    public void setLvec(Vector3D lvec) {
+        this.lvec = lvec;
+    }
+
+    public float getIr() {
+        return ir;
+    }
+    public void setIr(float ir) {
+        this.ir = ir;
+    }
+
+    public float getIb() {
+        return ib;
+    }
+    public void setIb(float ib) {
+        this.ib = ib;
+    }
+
+    public float getIg() {
+        return ig;
+    }
+    public void setIg(float ig) {
+        this.ig = ig;
+    }
 
     public Light(int type, Vector3D v, float r, float g, float b) {
         lightType = type;
@@ -149,7 +187,7 @@ class Light {
         if (type != AMBIENT) {
             lvec = v;
             if (type == DIRECTIONAL) {
-                lvec.normalize();
+                getLvec().normalize();
             }
         }
     }
@@ -182,17 +220,17 @@ class Surface {
         float b = 0;
         for (Object lightSources : lights) {
             Light light = (Light) lightSources;
-            if (light.lightType == Light.AMBIENT) {
-                r += ka*ir*light.ir;
-                g += ka*ig*light.ig;
-                b += ka*ib*light.ib;
+            if (light.getLightType() == Light.AMBIENT) {
+                r += ka*ir*light.getIr();
+                g += ka*ig*light.getIg();
+                b += ka*ib*light.getIg();
             } else {
                 Vector3D l;
-                if (light.lightType == Light.POINT) {
-                    l = new Vector3D(light.lvec.x - p.x, light.lvec.y - p.y, light.lvec.z - p.z);
+                if (light.getLightType() == Light.POINT) {
+                    l = new Vector3D(light.getLvec().x - p.x, light.getLvec().y - p.y, light.getLvec().z - p.z);
                     l.normalize();
                 } else {
-                    l = new Vector3D(-light.lvec.x, -light.lvec.y, -light.lvec.z);
+                    l = new Vector3D(-light.getLvec().x, -light.getLvec().y, -light.getLvec().z);
                 }
 
                 // Check if the surface point is in shadow
@@ -205,18 +243,18 @@ class Surface {
                 if (lambert > 0) {
                     if (kd > 0) {
                         float diffuse = kd*lambert;
-                        r += diffuse*ir*light.ir;
-                        g += diffuse*ig*light.ig;
-                        b += diffuse*ib*light.ib;
+                        r += diffuse*ir*light.getIr();
+                        g += diffuse*ig*light.getIg();
+                        b += diffuse*ib*light.getIb();
                     }
                     if (ks > 0) {
                         lambert *= 2;
                         float spec = v.dot(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
                         if (spec > 0) {
                             spec = ks*((float) Math.pow((double) spec, (double) ns));
-                            r += spec*light.ir;
-                            g += spec*light.ig;
-                            b += spec*light.ib;
+                            r += spec*light.getIr();
+                            g += spec*light.getIg();
+                            b += spec*light.getIb();
                         }
                     }
                 }
@@ -270,10 +308,10 @@ abstract interface Renderable {
 
 // An example "Renderable" object
 class Sphere implements Renderable {
-    Surface surface;
-    Vector3D center;
-    float radius;
-    float radSqr;
+    private Surface surface;
+    private Vector3D center;
+    private float radius;
+    private float radSqr;
 
     public Sphere(Surface s, Vector3D c, float r) {
         surface = s;
