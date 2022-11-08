@@ -31,17 +31,17 @@ public class Surface {
         float b = 0;
         for (Object lightSources : lights) {
             Light light = (Light) lightSources;
-            if (light.lightType == Light.AMBIENT) {
-                r += ka*ir*light.ir;
-                g += ka*ig*light.ig;
-                b += ka*ib*light.ib;
+            if (light.getLightType() == Light.AMBIENT) {
+                r += ka*ir*light.getIr();
+                g += ka*ig*light.getIg();
+                b += ka*ib*light.getIb();
             } else {
                 Vector3D l;
-                if (light.lightType == Light.POINT) {
-                    l = new Vector3D(light.lvec.x - p.x, light.lvec.y - p.y, light.lvec.z - p.z);
+                if (light.getLightType() == Light.POINT) {
+                    l = new Vector3D(light.getLvec().x - p.x, light.getLvec().y - p.y, light.getLvec().z - p.z);
                     l.normalize();
                 } else {
-                    l = new Vector3D(-light.lvec.x, -light.lvec.y, -light.lvec.z);
+                    l = new Vector3D(-light.getLvec().x, -light.getLvec().y, -light.getLvec().z);
                 }
 
                 // Check if the surface point is in shadow
@@ -54,18 +54,18 @@ public class Surface {
                 if (lambert > 0) {
                     if (kd > 0) {
                         float diffuse = kd*lambert;
-                        r += diffuse*ir*light.ir;
-                        g += diffuse*ig*light.ig;
-                        b += diffuse*ib*light.ib;
+                        r += diffuse*ir*light.getIr();
+                        g += diffuse*ig*light.getIg();
+                        b += diffuse*ib*light.getIb();
                     }
                     if (ks > 0) {
                         lambert *= 2;
                         float spec = v.dot(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
                         if (spec > 0) {
                             spec = ks*((float) Math.pow((double) spec, (double) ns));
-                            r += spec*light.ir;
-                            g += spec*light.ig;
-                            b += spec*light.ib;
+                            r += spec*light.getIr();
+                            g += spec*light.getIg();
+                            b += spec*light.getIb();
                         }
                     }
                 }
