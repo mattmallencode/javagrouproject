@@ -18,6 +18,86 @@ public class Surface {
     protected float kt, kr, nt;
     private static final float TINY = 0.001f;
     private static final float I255 = 0.00392156f;  // 1/255
+    public float getIr() {
+        return ir;
+    }
+
+    public void setIr(float ir) {
+        this.ir = ir;
+    }
+
+    public float getIg() {
+        return ig;
+    }
+
+    public void setIg(float ig) {
+        this.ig = ig;
+    }
+
+    public float getIb() {
+        return ib;
+    }
+
+    public void setIb(float ib) {
+        this.ib = ib;
+    }
+
+    public float getKa() {
+        return ka;
+    }
+
+    public void setKa(float ka) {
+        this.ka = ka;
+    }
+
+    public float getKd() {
+        return kd;
+    }
+
+    public void setKd(float kd) {
+        this.kd = kd;
+    }
+
+    public float getKs() {
+        return ks;
+    }
+
+    public void setKs(float ks) {
+        this.ks = ks;
+    }
+
+    public float getNs() {
+        return ns;
+    }
+
+    public void setNs(float ns) {
+        this.ns = ns;
+    }
+
+    public float getKt() {
+        return kt;
+    }
+
+    public void setKt(float kt) {
+        this.kt = kt;
+    }
+
+    public float getKr() {
+        return kr;
+    }
+
+    public void setKr(float kr) {
+        this.kr = kr;
+    }
+
+    public float getNt() {
+        return nt;
+    }
+
+    public void setNt(float nt) {
+        this.nt = nt;
+    }
+
 
     public Surface(float rval, float gval, float bval, float a, float d, float s, float n, float r, float t, float index) {
         ir = rval; ig = gval; ib = bval;
