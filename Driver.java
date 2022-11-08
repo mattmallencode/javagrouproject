@@ -6,27 +6,21 @@ import java.util.List;
 
 class Driver  {
     final static int CHUNKSIZE = 100;
-    List<Object> objectList;
-    List<Object> lightList;
-    Surface currentSurface;
-	BufferedImage canvas;
-
-    Vector3D eye, lookat, up;
-    Vector3D Du, Dv, Vp;
-    float fov;
-
-    Color background;
-
-    int width, height;
+	static List<Object> objectList;
+	static List<Object> lightList;
+	static Surface currentSurface;
+	static BufferedImage canvas;
+	static Vector3D eye, lookat, up;
+	static Vector3D Du, Dv, Vp;
+	static float fov;
+	static Color background;
+	int width, height;
 
     public Driver(int width, int height, String dataFile) {
         this.width = width;
         this.height = height;
-
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
         fov = 30;               // default horizonal field of view
-
         // Initialize various lists
         objectList = new ArrayList<>(CHUNKSIZE);
         lightList = new ArrayList<>(CHUNKSIZE);
@@ -73,24 +67,31 @@ class Driver  {
         return st.nval;
     }
 
-	void addSphere(float x, float y, float z, float radius) {
+	/**
+	 *
+	 * @param x value to serach for in the list
+	 * @param radius      the list to search (cannot be null)
+//	 * @throws IllegalArgumentException if list is null
+	 */
+
+	public final void addSphere(float x, float y, float z, float radius) {
 		Vector3D v = new Vector3D(x, y, z);
 		float r = radius;
 		objectList.add(new Sphere(currentSurface, v, r));
 	}
-	void setEye(float x, float y, float z) {
+	public final void setEye(float x, float y, float z) {
 		eye = new Vector3D(x, y, z);
 	}
-	void setLookat(float x, float y, float z) {
+	public final void setLookat(float x, float y, float z) {
 		lookat = new Vector3D(x, y, z);
 	}
-    void setUp(float x, float y, float z) {
+	public final void setUp(float x, float y, float z) {
         up = new Vector3D(x, y, z);
     }
-    void setFov(float f) {
+	public final void setFov(float f) {
             fov = f;
     }
-    void setBackground(int r, int g, int b) {
+	public final void setBackground(int r, int g, int b) {
         background = new Color(r, g, b);
     }
 	void ReadInput(InputStream is) throws IOException {
