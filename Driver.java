@@ -10,7 +10,7 @@ class Driver  {
 	static List<Object> lightList;
 	static Surface currentSurface;
 	static BufferedImage canvas;
-	static Vector3D eye, lookat, up;
+	static Vector3D eye, lookAt, up;
 	static Vector3D Du, Dv, Vp;
 	static float fov;
 	static Color background;
@@ -20,7 +20,7 @@ class Driver  {
         this.width = width;
         this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        fov = 30;               // default horizonal field of view
+        fov = 30;               // default horizontal field of view
         // Initialize various lists
         objectList = new ArrayList<>(CHUNKSIZE);
         lightList = new ArrayList<>(CHUNKSIZE);
@@ -42,13 +42,13 @@ class Driver  {
 
         // Initialize more defaults if they weren't specified
         if (eye == null) eye = new Vector3D(0, 0, 10);
-        if (lookat == null) lookat = new Vector3D(0, 0, 0);
+        if (lookAt == null) lookAt = new Vector3D(0, 0, 0);
         if (up  == null) up = new Vector3D(0, 1, 0);
         if (background == null) background = new Color(0,0,0);
 
         // Compute viewing matrix that maps a
         // screen coordinate to a ray direction
-        Vector3D look = new Vector3D(lookat.x - eye.x, lookat.y - eye.y, lookat.z - eye.z);
+        Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
         Du = Vector3D.normalize(look.cross(up));
         Dv = Vector3D.normalize(look.cross(Du));
         float fl = (float)(width / (2*Math.tan((0.5*fov)*Math.PI/180)));
@@ -68,7 +68,7 @@ class Driver  {
     }
 
 	/**
-	 * add a new sphere to the driver
+	 * add a new sphere to the scene
 	 * @param x X-position of the sphere
 	 * @param y Y-position of the sphere
 	 * @param z Z-position of the sphere
@@ -80,7 +80,7 @@ class Driver  {
 	}
 
 	/**
-	 * set the position of the eye
+	 * Set the position of the eye.
 	 * @param x X-position of the eye
 	 * @param y Y-position of the eye
 	 * @param z Z-position of the eye
@@ -90,16 +90,16 @@ class Driver  {
 	}
 	// not sure what lookat is :(
 	/**
-	 * set the position of lookat
+	 * Set the position of lookAt.
 	 * @param x X-position
 	 * @param y Y-position
 	 * @param z Z-position
 	 */
-	public final void setLookat(float x, float y, float z) {
-		lookat = new Vector3D(x, y, z);
+	public final void setLookAt(float x, float y, float z) {
+		lookAt = new Vector3D(x, y, z);
 	}
 	/**
-	 * set the position of up
+	 * Set the position of up.
 	 * @param x X-position
 	 * @param y Y-position
 	 * @param z Z-position
@@ -108,21 +108,45 @@ class Driver  {
         up = new Vector3D(x, y, z);
     }
 	/**
-	 * set the field of view
+	 * Set the field of view.
 	 * @param f fov
 	 */
 	public final void setFov(float f) {
             fov = f;
     }
 	/**
-	 * set the colour of the background
+	 * Set the colour of the background.
 	 * @param r red
 	 * @param g greed
 	 * @param b blue
 	 */
-	public final void setBackground(int r, int g, int b) {
+	public final void setBackground(float r, float g, float b) {
         background = new Color(r, g, b);
     }
+
+	/**
+	 * Add a light to the scene.
+	 * @param r red
+	 * @param g green
+	 * @param b blue
+	 * @param x X-position
+	 * @param y Y-position
+	 * @param z Z-position
+	 * @param lightType "ambient", "directional", or "point"
+	 */
+	public final void addLight(float r, float g, float b, float x, float y, float z, String lightType) {
+		Vector3D v = new Vector3D(x, y, z);
+		if (lightType == "ambient") {
+			lightList.add(new Light(Light.AMBIENT, null, r, g, b));
+		} else if (lightType == "directional") {
+			lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
+		}
+		else if (lightType == "point") {
+			lightList.add(new Light(Light.POINT, v, r, g, b));
+		} else {
+			throw new IllegalArgumentException("lightType can only be: ambient, directional, or point.");
+		}
+	}
 	void ReadInput(InputStream is) throws IOException {
 	    StreamTokenizer st = new StreamTokenizer(is);
     	st.commentChar('#');
@@ -140,7 +164,7 @@ class Driver  {
 		            eye = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
 			    } else
 			    if (st.sval.equals("lookat")) {
-		            lookat = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
+		            lookAt = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
 			    } else
 			    if (st.sval.equals("up")) {
 		            up = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
