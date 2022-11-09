@@ -1,5 +1,3 @@
-// legacy code, do not edit
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
