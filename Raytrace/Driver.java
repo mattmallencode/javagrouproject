@@ -1,8 +1,9 @@
-// legacy code, do not edit
+package Raytrace;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.IOException;
+import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,7 +182,7 @@ class Driver {
 		Color pixelColour;
 
 		if (ray.trace(objectList)) {
-			java.awt.Color bg = background;
+			Color bg = background;
 			pixelColour = ray.Shade(lightList, objectList, bg);
 		} else {
 			pixelColour = background;
