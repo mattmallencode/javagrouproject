@@ -44,7 +44,7 @@ public class Sphere implements Renderable {
         return true;
     }
 
-    public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color bgnd) {
+    public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color background) {
         // An object shader doesn't really do too much other than
         // supply a few critical bits of geometric information
         // for a surface shader. It must must compute:
@@ -64,7 +64,7 @@ public class Sphere implements Renderable {
 
         // The illumination model is applied
         // by the surface's Shade() method
-        return surface.Shade(p, n, v, lights, objects, bgnd);
+        return surface.Shade(p, n, v, lights, objects, background);
     }
 
     public String toString() {
