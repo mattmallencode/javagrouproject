@@ -40,8 +40,8 @@ public class Ray {
     // to
     //            ray.object.Shade(ray, ...)
     //
-    public final Color Shade(List<Object> lights, List<Object> objects, Color bgnd) {
-        return object.Shade(this, lights, objects, bgnd);
+    public final Color Shade(List<Object> lights, List<Object> objects, Color background) {
+        return object.Shade(this, lights, objects, background);
     }
 
     public String toString() {
