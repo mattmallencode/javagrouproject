@@ -8,13 +8,13 @@ public class Sphere implements Renderable {
     protected Surface surface;
     protected Vector3D center;
     protected float radius;
-    protected float radSqr;
+    protected float radiusSquare;
 
     public Sphere(Surface s, Vector3D c, float r) {
         surface = s;
         center = c;
         radius = r;
-        radSqr = r * r;
+        radiusSquare = r * r;
     }
 
     public boolean intersect(Ray ray) {
@@ -29,7 +29,7 @@ public class Sphere implements Renderable {
             return false;
 
         // Test if the ray actually intersects the sphere
-        float t = radSqr + v * v - dx * dx - dy * dy - dz * dz;
+        float t = radiusSquare + v * v - dx * dx - dy * dy - dz * dz;
         if (t < 0)
             return false;
 

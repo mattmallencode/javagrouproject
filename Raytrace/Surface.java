@@ -13,81 +13,81 @@ kr = reflectance coefficient
 ns phong exponent
  */
 public class Surface {
-    protected float ir, ig, ib;        // surface's intrinsic color
-    protected float ka, kd, ks, ns;    // constants for phong model
-    protected float kt, kr, nt;
+    protected float intrinsicRed, intrinsicGreen, intrinsicBlue;        // surface's intrinsic color
+    protected float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
+    protected float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
     private static final float I255 = 0.00392156f;  // 1/255
-    public float getIr() {
-        return ir;
+    public float getIntrinsicRed() {
+        return intrinsicRed;
     }
 
-    public void setIr(float ir) {
-        this.ir = ir;
+    public void setIntrinsicRed(float intrinsicRed) {
+        this.intrinsicRed = intrinsicRed;
     }
 
-    public float getIg() {
-        return ig;
+    public float getIntrinsicGreen() {
+        return intrinsicGreen;
     }
 
-    public void setIg(float ig) {
-        this.ig = ig;
+    public void setIntrinsicGreen(float intrinsicGreen) {
+        this.intrinsicGreen = intrinsicGreen;
     }
 
-    public float getIb() {
-        return ib;
+    public float getIntrinsicBlue() {
+        return intrinsicBlue;
     }
 
-    public void setIb(float ib) {
-        this.ib = ib;
+    public void setIntrinsicBlue(float intrinsicBlue) {
+        this.intrinsicBlue = intrinsicBlue;
     }
 
-    public float getKa() {
-        return ka;
+    public float getAmbientReflectionCoefficient() {
+        return ambientReflectionCoefficient;
     }
 
-    public void setKa(float ka) {
-        this.ka = ka;
+    public void setAmbientReflectionCoefficient(float ambientReflectionCoefficient) {
+        this.ambientReflectionCoefficient = ambientReflectionCoefficient;
     }
 
-    public float getKd() {
-        return kd;
+    public float getDiffuseReflectionCoefficient() {
+        return diffuseReflectionCoefficient;
     }
 
-    public void setKd(float kd) {
-        this.kd = kd;
+    public void setDiffuseReflectionCoefficient(float diffuseReflectionCoefficient) {
+        this.diffuseReflectionCoefficient = diffuseReflectionCoefficient;
     }
 
-    public float getKs() {
-        return ks;
+    public float getSpecularReflectionCoefficient() {
+        return specularReflectionCoefficient;
     }
 
-    public void setKs(float ks) {
-        this.ks = ks;
+    public void setSpecularReflectionCoefficient(float specularReflectionCoefficient) {
+        this.specularReflectionCoefficient = specularReflectionCoefficient;
     }
 
-    public float getNs() {
-        return ns;
+    public float getPhongExponent() {
+        return phongExponent;
     }
 
-    public void setNs(float ns) {
-        this.ns = ns;
+    public void setPhongExponent(float phongExponent) {
+        this.phongExponent = phongExponent;
     }
 
-    public float getKt() {
-        return kt;
+    public float getTransmissionCoefficient() {
+        return transmissionCoefficient;
     }
 
-    public void setKt(float kt) {
-        this.kt = kt;
+    public void setTransmissionCoefficient(float transmissionCoefficient) {
+        this.transmissionCoefficient = transmissionCoefficient;
     }
 
-    public float getKr() {
-        return kr;
+    public float getReflectanceCoefficient() {
+        return reflectanceCoefficient;
     }
 
-    public void setKr(float kr) {
-        this.kr = kr;
+    public void setReflectanceCoefficient(float reflectanceCoefficient) {
+        this.reflectanceCoefficient = reflectanceCoefficient;
     }
 
     public float getNt() {
@@ -99,22 +99,22 @@ public class Surface {
     }
 
 
-    public Surface(float rval, float gval, float bval, float a, float d, float s, float n, float r, float t, float index) {
-        ir = rval; ig = gval; ib = bval;
-        ka = a; kd = d; ks = s; ns = n;
-        kr = r*I255; kt = t; nt = index;
+    public Surface(float redValue, float greenValue, float blueValue, float ambient, float diffuse, float specular, float n, float reflectance, float transmission, float index) {
+        intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
+        ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
+        reflectanceCoefficient = reflectance*I255; transmissionCoefficient = transmission; nt = index;
     }
 
-    public Color Shade(Vector3D p, Vector3D n, Vector3D v, java.util.List<Object> lights, List<Object> objects, Color bgnd) {
-        float r = 0;
-        float g = 0;
-        float b = 0;
+    Color Shade(Vector3D p, Vector3D n, Vector3D v, java.util.List<Object> lights, List<Object> objects, Color background) {
+        float red = 0;
+        float green = 0;
+        float blue = 0;
         for (Object lightSources : lights) {
             Light light = (Light) lightSources;
             if (light.getLightType() == Light.AMBIENT) {
-                r += ka*ir*light.getIr();
-                g += ka*ig*light.getIg();
-                b += ka*ib*light.getIb();
+                red += ambientReflectionCoefficient * intrinsicRed *light.getIr();
+                green += ambientReflectionCoefficient * intrinsicGreen *light.getIg();
+                blue += ambientReflectionCoefficient * intrinsicBlue *light.getIb();
             } else {
                 Vector3D l;
                 if (light.getLightType() == Light.POINT) {
@@ -125,27 +125,27 @@ public class Surface {
                 }
 
                 // Check if the surface point is in shadow
-                Vector3D poffset = new Vector3D(p.x + TINY*l.x, p.y + TINY*l.y, p.z + TINY*l.z);
-                Ray shadowRay = new Ray(poffset, l);
+                Vector3D pointOffset = new Vector3D(p.x + TINY*l.x, p.y + TINY*l.y, p.z + TINY*l.z);
+                Ray shadowRay = new Ray(pointOffset, l);
                 if (shadowRay.trace(objects))
                     break;
 
                 float lambert = Vector3D.dot(n,l);
                 if (lambert > 0) {
-                    if (kd > 0) {
-                        float diffuse = kd*lambert;
-                        r += diffuse*ir*light.getIr();
-                        g += diffuse*ig*light.getIg();
-                        b += diffuse*ib*light.getIb();
+                    if (diffuseReflectionCoefficient > 0) {
+                        float diffuse = diffuseReflectionCoefficient *lambert;
+                        red += diffuse* intrinsicRed *light.getIr();
+                        green += diffuse* intrinsicGreen *light.getIg();
+                        blue += diffuse* intrinsicBlue *light.getIb();
                     }
-                    if (ks > 0) {
+                    if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
                         float spec = v.dot(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
                         if (spec > 0) {
-                            spec = ks*((float) Math.pow((double) spec, (double) ns));
-                            r += spec*light.getIr();
-                            g += spec*light.getIg();
-                            b += spec*light.getIb();
+                            spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
+                            red += spec*light.getIr();
+                            green += spec*light.getIg();
+                            blue += spec*light.getIb();
                         }
                     }
                 }
@@ -153,37 +153,37 @@ public class Surface {
         }
 
         // Compute illumination due to reflection
-        if (kr > 0) {
+        if (reflectanceCoefficient > 0) {
             float t = v.dot(n);
             if (t > 0) {
                 t *= 2;
                 Vector3D reflect = new Vector3D(t*n.x - v.x, t*n.y - v.y, t*n.z - v.z);
-                Vector3D poffset = new Vector3D(p.x + TINY*reflect.x, p.y + TINY*reflect.y, p.z + TINY*reflect.z);
-                Ray reflectedRay = new Ray(poffset, reflect);
+                Vector3D pointOffset = new Vector3D(p.x + TINY*reflect.x, p.y + TINY*reflect.y, p.z + TINY*reflect.z);
+                Ray reflectedRay = new Ray(pointOffset, reflect);
                 if (reflectedRay.trace(objects)) {
-                    Color rcolor = reflectedRay.Shade(lights, objects, bgnd);
-                    r += kr*rcolor.getRed();
-                    g += kr*rcolor.getGreen();
-                    b += kr*rcolor.getBlue();
+                    Color reflectedColor = reflectedRay.Shade(lights, objects, background);
+                    red += reflectanceCoefficient *reflectedColor.getRed();
+                    green += reflectanceCoefficient *reflectedColor.getGreen();
+                    blue += reflectanceCoefficient *reflectedColor.getBlue();
                 } else {
-                    r += kr*bgnd.getRed();
-                    g += kr*bgnd.getGreen();
-                    b += kr*bgnd.getBlue();
+                    red += reflectanceCoefficient *background.getRed();
+                    green += reflectanceCoefficient *background.getGreen();
+                    blue += reflectanceCoefficient *background.getBlue();
                 }
             }
         }
 
         // Add code for refraction here
 
-        r = (r > 1f) ? 1f : r;
-        g = (g > 1f) ? 1f : g;
-        b = (b > 1f) ? 1f : b;
+        red = (red > 1f) ? 1f : red;
+        green = (green > 1f) ? 1f : green;
+        blue = (blue > 1f) ? 1f : blue;
 
-        r = (r < 0) ? 0 : r;
-        g = (g < 0) ? 0 : g;
-        b = (b < 0) ? 0 : b;
+        red = (red < 0) ? 0 : red;
+        green = (green < 0) ? 0 : green;
+        blue = (blue < 0) ? 0 : blue;
 
-        return new Color(r, g, b);
+        return new Color(red, green, blue);
     }
 }
 
