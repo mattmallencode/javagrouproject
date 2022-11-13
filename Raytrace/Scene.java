@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Scene {
+public class Scene {
 	final static int CHUNKSIZE = 100;
 	static List<Object> objectList;
 	static List<Object> lightList;
@@ -18,7 +18,7 @@ class Scene {
 	static Color background;
 	int width, height;
 
-	public Scene(int width, int height, String dataFile) {
+	public Scene(int width, int height) {
 		this.width = width;
 		this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -27,9 +27,7 @@ class Scene {
 		objectList = new ArrayList<>(CHUNKSIZE);
 		lightList = new ArrayList<>(CHUNKSIZE);
 		currentSurface = new Surface(0.8f, 0.2f, 0.9f, 0.2f, 0.4f, 0.4f, 10.0f, 0f, 0f, 1f);
-		// Parse the scene file
-		String filename = dataFile != null ? dataFile : "defaultScene.txt";
-		// Initialize more defaults if they weren't specified
+
 		if (eye == null)
 			eye = new Vector3D(0, 0, 10);
 		if (lookAt == null)
@@ -126,27 +124,42 @@ class Scene {
 	}
 
 	/**
+	 * Add ambient light to the scene.
+	 *
+	 * @param r         Red
+	 * @param g         Green
+	 * @param b         Blue
+	 */
+	public final void addAmbientLight(float r, float g, float b) {
+		lightList.add(new Light(Light.AMBIENT, null, r, g, b));
+	}
+	/**
 	 * Add a light to the scene.
 	 *
 	 * @param r         Red
 	 * @param g         Green
 	 * @param b         Blue
-	 * @param x         X-position
-	 * @param y         Y-position
-	 * @param z         Z-position
-	 * @param lightType "ambient", "directional", or "point"
+	 * @param x         TODO
+	 * @param y         TODO
+	 * @param z         TODO
 	 */
-	public final void addLight(float r, float g, float b, float x, float y, float z, String lightType) {
+	public final void addDirectionalLight(float r, float g, float b, float x, float y, float z) {
 		Vector3D v = new Vector3D(x, y, z);
-		if (lightType == "ambient") {
-			lightList.add(new Light(Light.AMBIENT, null, r, g, b));
-		} else if (lightType == "directional") {
-			lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
-		} else if (lightType == "point") {
-			lightList.add(new Light(Light.POINT, v, r, g, b));
-		} else {
-			throw new IllegalArgumentException("lightType can only be: ambient, directional, or point.");
-		}
+		lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
+	}
+	/**
+	 * Add a point light to the scene.
+	 *
+	 * @param r         Red
+	 * @param g         Green
+	 * @param b         Blue
+	 * @param x         TODO
+	 * @param y         TODO
+	 * @param z         TODO
+	 */
+	public final void addLight(float r, float g, float b, float x, float y, float z) {
+		Vector3D v = new Vector3D(x, y, z);
+		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
 	/**
