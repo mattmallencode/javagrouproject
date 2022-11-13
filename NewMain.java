@@ -1,4 +1,5 @@
 import Raytrace.*;
+import Raytrace.Vector3D;
 
 public class NewMain {
     public static void main(String[] args) {
@@ -9,7 +10,7 @@ public class NewMain {
         s.addAmbientLight(1.0F, 1.0F, 0.981F);
         s.addAmbientLight(0.9F, 0.9F, 0.9F);
         s.addAmbientLight(0.74F, 0.859F, 0.224F);
-        s.addDirectionalLight(0.6F, 0.6F, 0.6F, -1F, -1F, -1F);
+        s.addDirectionalLight(0.6F, 0.6F, 0.6F, new Vector3D(-1F, -1F, -1F));
 
 
 //        # Objects
