@@ -11,9 +11,9 @@ class Driver  {
     Surface currentSurface;
     BufferedImage canvas;
 
-    Vector3D eye, lookat, up;
-    Vector3D Du, Dv, Vp;
-    float fov;
+    Vector3D eye, lookAt, up;
+    Vector3D dU, dV, vP;
+    float fieldOfView;
 
     Color background;
 
@@ -25,7 +25,7 @@ class Driver  {
 
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        fov = 30;               // default horizonal field of view
+        fieldOfView = 30;               // default horizonal field of view
 
         // Initialize various lists
         objectList = new ArrayList<>(CHUNKSIZE);
@@ -48,20 +48,20 @@ class Driver  {
 
         // Initialize more defaults if they weren't specified
         if (eye == null) eye = new Vector3D(0, 0, 10);
-        if (lookat == null) lookat = new Vector3D(0, 0, 0);
+        if (lookAt == null) lookAt = new Vector3D(0, 0, 0);
         if (up  == null) up = new Vector3D(0, 1, 0);
         if (background == null) background = new Color(0,0,0);
 
         // Compute viewing matrix that maps a
         // screen coordinate to a ray direction
-        Vector3D look = new Vector3D(lookat.x - eye.x, lookat.y - eye.y, lookat.z - eye.z);
-        Du = Vector3D.normalize(look.cross(up));
-        Dv = Vector3D.normalize(look.cross(Du));
-        float fl = (float)(width / (2*Math.tan((0.5*fov)*Math.PI/180)));
-        Vp = Vector3D.normalize(look);
-        Vp.x = Vp.x*fl - 0.5f*(width*Du.x + height*Dv.x);
-        Vp.y = Vp.y*fl - 0.5f*(width*Du.y + height*Dv.y);
-        Vp.z = Vp.z*fl - 0.5f*(width*Du.z + height*Dv.z);
+        Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
+        dU = Vector3D.normalize(look.cross(up));
+        dV = Vector3D.normalize(look.cross(dU));
+        float fl = (float)(width / (2*Math.tan((0.5* fieldOfView)*Math.PI/180)));
+        vP = Vector3D.normalize(look);
+        vP.x = vP.x*fl - 0.5f*(width* dU.x + height* dV.x);
+        vP.y = vP.y*fl - 0.5f*(width* dU.y + height* dV.y);
+        vP.z = vP.z*fl - 0.5f*(width* dU.z + height* dV.z);
     }
 
 
@@ -90,13 +90,13 @@ class Driver  {
                         eye = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
                     } else
                     if (st.sval.equals("lookat")) {
-                        lookat = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
+                        lookAt = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
                     } else
                     if (st.sval.equals("up")) {
                         up = new Vector3D((float) getNumber(st), (float) getNumber(st), (float) getNumber(st));
                     } else
                     if (st.sval.equals("fov")) {
-                        fov = (float) getNumber(st);
+                        fieldOfView = (float) getNumber(st);
                     } else
                     if (st.sval.equals("background")) {
                         background = new Color((int) getNumber(st), (int) getNumber(st), (int) getNumber(st));
@@ -150,9 +150,9 @@ class Driver  {
 
     public void renderPixel(int i, int j) {
         Vector3D dir = new Vector3D(
-                i*Du.x + j*Dv.x + Vp.x,
-                i*Du.y + j*Dv.y + Vp.y,
-                i*Du.z + j*Dv.z + Vp.z);
+                i* dU.x + j* dV.x + vP.x,
+                i* dU.y + j* dV.y + vP.y,
+                i* dU.z + j* dV.z + vP.z);
         Ray ray = new Ray(eye, dir);
         Color pixelColour;
 
