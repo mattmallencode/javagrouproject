@@ -8,11 +8,11 @@ class Light {
     public static final int POINT = 2;
 
     protected int lightType;
-    protected Vector3D lvec;           // the position of a point light or
+    protected Vector3D lightVector;           // the position of a point light or
                                      // the direction to a directional light
-    protected float ir;
-    protected float ig;
-    protected float ib;                // intensity of the light source
+    protected float intensityRed;
+    protected float intensityGreen;
+    protected float intensityBlue;                // intensity of the light source
 
     //getter and setters
     public int getLightType() {
@@ -22,44 +22,44 @@ class Light {
         this.lightType = lightType;
     }
 
-    public Vector3D getLvec() {
-        return lvec;
+    public Vector3D getLightVector() {
+        return lightVector;
     }
-    public void setLvec(Vector3D lvec) {
-        this.lvec = lvec;
-    }
-
-    public float getIr() {
-        return ir;
-    }
-    public void setIr(float ir) {
-        this.ir = ir;
+    public void setLightVector(Vector3D lightVector) {
+        this.lightVector = lightVector;
     }
 
-    public float getIb() {
-        return ib;
+    public float getIntensityRed() {
+        return intensityRed;
     }
-    public void setIb(float ib) {
-        this.ib = ib;
+    public void setIntensityRed(float intensityRed) {
+        this.intensityRed = intensityRed;
     }
 
-    public float getIg() {
-        return ig;
+    public float getIntensityBlue() {
+        return intensityBlue;
     }
-    public void setIg(float ig) {
-        this.ig = ig;
+    public void setIntensityBlue(float intensityBlue) {
+        this.intensityBlue = intensityBlue;
+    }
+
+    public float getIntensityGreen() {
+        return intensityGreen;
+    }
+    public void setIntensityGreen(float intensityGreen) {
+        this.intensityGreen = intensityGreen;
     }
 
 
     public Light(int type, Vector3D v, float r, float g, float b) {
         lightType = type;
-        ir = r;
-        ig = g;
-        ib = b;
+        intensityRed = r;
+        intensityGreen = g;
+        intensityBlue = b;
         if (type != AMBIENT) {
-            lvec = v;
+            lightVector = v;
             if (type == DIRECTIONAL) {
-                lvec.normalize();
+                lightVector.normalize();
             }
         }
     }

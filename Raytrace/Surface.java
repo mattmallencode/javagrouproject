@@ -112,16 +112,16 @@ public class Surface {
         for (Object lightSources : lights) {
             Light light = (Light) lightSources;
             if (light.getLightType() == Light.AMBIENT) {
-                red += ambientReflectionCoefficient * intrinsicRed *light.getIr();
-                green += ambientReflectionCoefficient * intrinsicGreen *light.getIg();
-                blue += ambientReflectionCoefficient * intrinsicBlue *light.getIb();
+                red += ambientReflectionCoefficient * intrinsicRed *light.getIntensityRed();
+                green += ambientReflectionCoefficient * intrinsicGreen *light.getIntensityGreen();
+                blue += ambientReflectionCoefficient * intrinsicBlue *light.getIntensityBlue();
             } else {
                 Vector3D l;
                 if (light.getLightType() == Light.POINT) {
-                    l = new Vector3D(light.getLvec().x - p.x, light.getLvec().y - p.y, light.getLvec().z - p.z);
+                    l = new Vector3D(light.getLightVector().x - p.x, light.getLightVector().y - p.y, light.getLightVector().z - p.z);
                     l.normalize();
                 } else {
-                    l = new Vector3D(-light.getLvec().x, -light.getLvec().y, -light.getLvec().z);
+                    l = new Vector3D(-light.getLightVector().x, -light.getLightVector().y, -light.getLightVector().z);
                 }
 
                 // Check if the surface point is in shadow
@@ -134,18 +134,18 @@ public class Surface {
                 if (lambert > 0) {
                     if (diffuseReflectionCoefficient > 0) {
                         float diffuse = diffuseReflectionCoefficient *lambert;
-                        red += diffuse* intrinsicRed *light.getIr();
-                        green += diffuse* intrinsicGreen *light.getIg();
-                        blue += diffuse* intrinsicBlue *light.getIb();
+                        red += diffuse* intrinsicRed *light.getIntensityRed();
+                        green += diffuse* intrinsicGreen *light.getIntensityGreen();
+                        blue += diffuse* intrinsicBlue *light.getIntensityBlue();
                     }
                     if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
                         float spec = v.dot(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
                         if (spec > 0) {
                             spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
-                            red += spec*light.getIr();
-                            green += spec*light.getIg();
-                            blue += spec*light.getIb();
+                            red += spec*light.getIntensityRed();
+                            green += spec*light.getIntensityGreen();
+                            blue += spec*light.getIntensityBlue();
                         }
                     }
                 }
