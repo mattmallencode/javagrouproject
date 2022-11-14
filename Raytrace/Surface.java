@@ -17,92 +17,15 @@ public class Surface {
     protected float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
     protected float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
-    private static final float I255 = 0.00392156f;  // 1/255
-    public float getIntrinsicRed() {
-        return intrinsicRed;
-    }
+    private static final float oneOver255 = 0.00392156f;  // 1/255
 
-    public void setIntrinsicRed(float intrinsicRed) {
-        this.intrinsicRed = intrinsicRed;
-    }
 
-    public float getIntrinsicGreen() {
-        return intrinsicGreen;
-    }
-
-    public void setIntrinsicGreen(float intrinsicGreen) {
-        this.intrinsicGreen = intrinsicGreen;
-    }
-
-    public float getIntrinsicBlue() {
-        return intrinsicBlue;
-    }
-
-    public void setIntrinsicBlue(float intrinsicBlue) {
-        this.intrinsicBlue = intrinsicBlue;
-    }
-
-    public float getAmbientReflectionCoefficient() {
-        return ambientReflectionCoefficient;
-    }
-
-    public void setAmbientReflectionCoefficient(float ambientReflectionCoefficient) {
-        this.ambientReflectionCoefficient = ambientReflectionCoefficient;
-    }
-
-    public float getDiffuseReflectionCoefficient() {
-        return diffuseReflectionCoefficient;
-    }
-
-    public void setDiffuseReflectionCoefficient(float diffuseReflectionCoefficient) {
-        this.diffuseReflectionCoefficient = diffuseReflectionCoefficient;
-    }
-
-    public float getSpecularReflectionCoefficient() {
-        return specularReflectionCoefficient;
-    }
-
-    public void setSpecularReflectionCoefficient(float specularReflectionCoefficient) {
-        this.specularReflectionCoefficient = specularReflectionCoefficient;
-    }
-
-    public float getPhongExponent() {
-        return phongExponent;
-    }
-
-    public void setPhongExponent(float phongExponent) {
-        this.phongExponent = phongExponent;
-    }
-
-    public float getTransmissionCoefficient() {
-        return transmissionCoefficient;
-    }
-
-    public void setTransmissionCoefficient(float transmissionCoefficient) {
-        this.transmissionCoefficient = transmissionCoefficient;
-    }
-
-    public float getReflectanceCoefficient() {
-        return reflectanceCoefficient;
-    }
-
-    public void setReflectanceCoefficient(float reflectanceCoefficient) {
-        this.reflectanceCoefficient = reflectanceCoefficient;
-    }
-
-    public float getNt() {
-        return nt;
-    }
-
-    public void setNt(float nt) {
-        this.nt = nt;
-    }
 
 
     public Surface(float redValue, float greenValue, float blueValue, float ambient, float diffuse, float specular, float n, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
         ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
-        reflectanceCoefficient = reflectance*I255; transmissionCoefficient = transmission; nt = index;
+        reflectanceCoefficient = reflectance* oneOver255; transmissionCoefficient = transmission; nt = index;
     }
 
     Color Shade(Vector3D p, Vector3D n, Vector3D v, java.util.List<Object> lights, List<Object> objects, Color background) {
@@ -175,9 +98,9 @@ public class Surface {
 
         // Add code for refraction here
 
-        red = (red > 1f) ? 1f : red;
-        green = (green > 1f) ? 1f : green;
-        blue = (blue > 1f) ? 1f : blue;
+        red = Math.min(red, 1f);
+        green = Math.min(green, 1f);
+        blue = Math.min(blue, 1f);
 
         red = (red < 0) ? 0 : red;
         green = (green < 0) ? 0 : green;

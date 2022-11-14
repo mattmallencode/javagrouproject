@@ -54,7 +54,7 @@ public class Scene {
 		eye = v;
 	}
 
-	// not sure what lookat is :(
+	// not sure what lookAt is :(
 	/**
 	 * Set the position of lookAt.
 	 *

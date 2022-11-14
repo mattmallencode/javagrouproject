@@ -18,36 +18,21 @@ class Light {
     public int getLightType() {
         return lightType;
     }
-    public void setLightType(int lightType) {
-        this.lightType = lightType;
-    }
 
     public Vector3D getLightVector() {
         return lightVector;
-    }
-    public void setLightVector(Vector3D lightVector) {
-        this.lightVector = lightVector;
     }
 
     public float getIntensityRed() {
         return intensityRed;
     }
-    public void setIntensityRed(float intensityRed) {
-        this.intensityRed = intensityRed;
-    }
 
     public float getIntensityBlue() {
         return intensityBlue;
     }
-    public void setIntensityBlue(float intensityBlue) {
-        this.intensityBlue = intensityBlue;
-    }
 
     public float getIntensityGreen() {
         return intensityGreen;
-    }
-    public void setIntensityGreen(float intensityGreen) {
-        this.intensityGreen = intensityGreen;
     }
 
 

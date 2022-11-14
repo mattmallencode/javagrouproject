@@ -34,7 +34,7 @@ public class Sphere implements Renderable {
             return false;
 
         // Test if the intersection is in the positive
-        // ray direction and it is the closest so far
+        // ray direction, and it is the closest so far
         t = v - ((float) Math.sqrt(t));
         if ((t > ray.getT()) || (t < 0))
             return false;
@@ -47,7 +47,7 @@ public class Sphere implements Renderable {
     public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color background) {
         // An object shader doesn't really do too much other than
         // supply a few critical bits of geometric information
-        // for a surface shader. It must must compute:
+        // for a surface shader. It must compute:
         //
         //   1. the point of intersection (p)
         //   2. a unit-length surface normal (n)
