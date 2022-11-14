@@ -32,15 +32,7 @@ public class Scene {
 		// Initialize various lists
 		objectList = new ArrayList<>(CHUNKSIZE);
 		lightList = new ArrayList<>(CHUNKSIZE);
-		// Compute viewing matrix that maps a screen coordinate to a ray direction
-		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
-		Du = Vector3D.normalize(look.cross(up));
-		Dv = Vector3D.normalize(look.cross(Du));
-		float fl = (float) (width / (2 * Math.tan((0.5 * fov) * Math.PI / 180)));
-		Vp = Vector3D.normalize(look);
-		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
-		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
-		Vp.z = Vp.z * fl - 0.5f * (width * Du.z + height * Dv.z);
+
 	}
 
 	/**
@@ -144,12 +136,21 @@ public class Scene {
 	 */
 	public void saveRenderedImage() throws IOException {
 		BufferedImage img = canvas;
-		File f = new File("MyFile.png");
+		File f = new File("out.png");
 		ImageIO.write(img, "PNG", f);
 
 	}
 
 	public void renderImage() {
+		// Compute viewing matrix that maps a screen coordinate to a ray direction
+		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
+		Du = Vector3D.normalize(look.cross(up));
+		Dv = Vector3D.normalize(look.cross(Du));
+		float fl = (float) (width / (2 * Math.tan((0.5 * fov) * Math.PI / 180)));
+		Vp = Vector3D.normalize(look);
+		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
+		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
+		Vp.z = Vp.z * fl - 0.5f * (width * Du.z + height * Dv.z);
 		for (int j = 0; j < this.height; j += 1) {
 			for (int i = 0; i < this.width; i += 1) {
 				renderPixel(i, j);
@@ -163,9 +164,9 @@ public class Scene {
 	 */
 	public void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(
-				i * Du.x + j * Dv.x + Vp.x,
-				i * Du.y + j * Dv.y + Vp.y,
-				i * Du.z + j * Dv.z + Vp.z);
+				i*Du.x + j*Dv.x + Vp.x,
+				i*Du.y + j*Dv.y + Vp.y,
+				i*Du.z + j*Dv.z + Vp.z);
 		Ray ray = new Ray(eye, dir);
 		Color pixelColour;
 

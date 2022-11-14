@@ -18,30 +18,21 @@ public class NewMain {
         s.addDirectionalLight(0.6F, 0.6F, 0.6F, new Vector3D(-1F, -1F, -1F));
 
         s.addSphere(new Surface(0.2F, 0.8F, 0.2F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
-                    new Vector3D(-0.4F, 0.375F, -0.4F), 0.375F);
+                new Vector3D(-0.4F, 0.375F, -0.4F), 0.375F);
 
         s.addSphere(new Surface(0.7F, 0.3F, 0.2F, 0.5F, 0.9F, 0.4F, 6.0F, 0F, 0F, 1F),
-                    new Vector3D(-0.6F, 1.05F, -0.6F), 0.3F);
+                new Vector3D(-0.6F, 1.05F, -0.6F), 0.3F);
+
 
         s.addSphere(new Surface(0.2F, 0.3F, 0.8F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
-                    new Vector3D(-0.8F, 1.575F, -0.8F), 0.125F);
+                new Vector3D(-0.8F, 1.575F, -0.8F), 0.125F);
 
         s.addSphere(new Surface(0.5F, 0.5F, 0.8F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
-                    new Vector3D(-1.2F, 2.575F, -0.8F), 0.1F);
+                new Vector3D(-1.2F, 2.575F, -0.8F), 0.1F);
 
-        JFrame frame;
-        frame = new JFrame("Ray Tracing Demonstration");
-        frame.setSize(600, 600);
-        frame.setPreferredSize(new Dimension(600, 600));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ImagePanel image = new ImagePanel("resources/Placeholder-01.png");
-
-        frame.add(image);
-        frame.pack();
-        frame.setVisible(true);
         s.renderImage();
-        image.updateImage(s.getRenderedImage());
+        s.getRenderedImage();
         s.saveRenderedImage();
 
 
