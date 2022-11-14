@@ -98,9 +98,9 @@ public class Surface {
 
         // Add code for refraction here
 
-        red = (red > 1f) ? 1f : red;
-        green = (green > 1f) ? 1f : green;
-        blue = (blue > 1f) ? 1f : blue;
+        red = Math.min(red, 1f);
+        green = Math.min(green, 1f);
+        blue = Math.min(blue, 1f);
 
         red = (red < 0) ? 0 : red;
         green = (green < 0) ? 0 : green;
