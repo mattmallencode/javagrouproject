@@ -145,25 +145,6 @@ public class Scene {
 		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
-	/**
-	 * Changes the current surface of the scene.
-	 *
-	 * @param r     Red
-	 * @param g     Green
-	 * @param b     Blue
-	 * @param ka    Ambient reflection constant
-	 * @param kd    Diffuse reflection constant
-	 * @param ks    Specular reflection constant
-	 * @param ns    TODO
-	 * @param kr    TODO
-	 * @param kt    TODO
-	 * @param index TODO
-	 */
-	public final void changeCurrentSurface(float r, float g, float b, float ka, float kd, float ks, float ns, float kr,
-										   float kt, float index) {
-		currentSurface = new Surface(r, g, b, ka, kd, ks, ns, kr, kt, index);
-	}
-
 	Image getRenderedImage() {
 		return canvas;
 	}
