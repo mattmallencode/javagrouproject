@@ -8,13 +8,13 @@ public class Sphere implements Renderable {
     protected Surface surface;
     protected Vector3D center;
     protected float radius;
-    protected float radSqr;
+    protected float radiusSquare;
 
     public Sphere(Surface s, Vector3D c, float r) {
         surface = s;
         center = c;
         radius = r;
-        radSqr = r * r;
+        radiusSquare = r * r;
     }
 
     public boolean intersect(Ray ray) {
@@ -29,7 +29,7 @@ public class Sphere implements Renderable {
             return false;
 
         // Test if the ray actually intersects the sphere
-        float t = radSqr + v * v - dx * dx - dy * dy - dz * dz;
+        float t = radiusSquare + v * v - dx * dx - dy * dy - dz * dz;
         if (t < 0)
             return false;
 
@@ -44,7 +44,7 @@ public class Sphere implements Renderable {
         return true;
     }
 
-    public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color bgnd) {
+    public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color background) {
         // An object shader doesn't really do too much other than
         // supply a few critical bits of geometric information
         // for a surface shader. It must must compute:
@@ -64,7 +64,7 @@ public class Sphere implements Renderable {
 
         // The illumination model is applied
         // by the surface's Shade() method
-        return surface.Shade(p, n, v, lights, objects, bgnd);
+        return surface.Shade(p, n, v, lights, objects, background);
     }
 
     public String toString() {
