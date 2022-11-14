@@ -2,15 +2,19 @@ import Raytrace.*;
 import Raytrace.Surface;
 import Raytrace.Vector3D;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+
 public class NewMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scene s = new Scene(600, 600);
         s.setEye(new Vector3D(1.5F, 10.5F, -1.5F));
         s.setLookAt(new Vector3D(-0.5F, 0F, -0.5F));
 
         s.addAmbientLight(1.0F, 1.0F, 0.981F);
         s.addAmbientLight(0.9F, 0.9F, 0.9F);
-        s.addAmbientLight(0.74F, 0.859F, 0.224F);
+        s.addAmbientLight(0.745F, 0.859F, 0.224F);
         s.addDirectionalLight(0.6F, 0.6F, 0.6F, new Vector3D(-1F, -1F, -1F));
 
         s.addSphere(new Surface(0.2F, 0.8F, 0.2F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
@@ -27,6 +31,21 @@ public class NewMain {
 
         s.addSphere(new Surface(0.5F, 0.5F, 0.8F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
                     new Vector3D(-1.2F, 2.575F, -0.8F), 0.1F);
+
+        JFrame frame;
+        frame = new JFrame("Ray Tracing Demonstration");
+        frame.setSize(600, 600);
+        frame.setPreferredSize(new Dimension(600, 600));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        ImagePanel image = new ImagePanel("resources/Placeholder-01.png");
+
+        frame.add(image);
+        frame.pack();
+        frame.setVisible(true);
+        s.renderImage();
+        image.updateImage(s.getRenderedImage());
+        s.saveRenderedImage();
 
 
     }

@@ -11,7 +11,6 @@ public class Scene {
 	final static int CHUNKSIZE = 100;
 	static List<Object> objectList;
 	static List<Object> lightList;
-	static Surface currentSurface;
 	static BufferedImage canvas;
 	static Vector3D eye, lookAt, up;
 	static Vector3D Du, Dv, Vp;
@@ -33,8 +32,6 @@ public class Scene {
 		// Initialize various lists
 		objectList = new ArrayList<>(CHUNKSIZE);
 		lightList = new ArrayList<>(CHUNKSIZE);
-		currentSurface = new Surface(0.8f, 0.2f, 0.9f, 0.2f, 0.4f, 0.4f, 10.0f, 0f, 0f, 1f);
-
 		// Compute viewing matrix that maps a screen coordinate to a ray direction
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
 		Du = Vector3D.normalize(look.cross(up));
@@ -44,14 +41,6 @@ public class Scene {
 		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
 		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
 		Vp.z = Vp.z * fl - 0.5f * (width * Du.z + height * Dv.z);
-	}
-
-	double getNumber(StreamTokenizer st) throws IOException {
-		if (st.nextToken() != StreamTokenizer.TT_NUMBER) {
-			System.err.println("ERROR: number expected in line " + st.lineno());
-			throw new IOException(st.toString());
-		}
-		return st.nval;
 	}
 
 	/**
@@ -145,7 +134,7 @@ public class Scene {
 		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
-	Image getRenderedImage() {
+	public Image getRenderedImage() {
 		return canvas;
 	}
 
@@ -154,8 +143,18 @@ public class Scene {
 	 * Output rendered image to current working directory in jpeg format
 	 */
 	public void saveRenderedImage() throws IOException {
-		File outfile = new File("out.jpg");
-		ImageIO.write(canvas, "jpg", outfile);
+		BufferedImage img = canvas;
+		File f = new File("MyFile.png");
+		ImageIO.write(img, "PNG", f);
+
+	}
+
+	public void renderImage() {
+		for (int j = 0; j < this.height; j += 1) {
+			for (int i = 0; i < this.width; i += 1) {
+				renderPixel(i, j);
+			}
+		}
 	}
 
 
