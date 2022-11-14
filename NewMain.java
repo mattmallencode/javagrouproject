@@ -32,7 +32,6 @@ public class NewMain {
 
 
         s.renderImage();
-        s.getRenderedImage();
         s.saveRenderedImage();
 
 

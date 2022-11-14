@@ -126,10 +126,6 @@ public class Scene {
 		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
-	public Image getRenderedImage() {
-		return canvas;
-	}
-
 	/**
 	 * TODO
 	 * Output rendered image to current working directory in jpeg format
