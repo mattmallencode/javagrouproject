@@ -17,7 +17,7 @@ public class Surface {
     protected float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
     protected float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
-    private static final float I255 = 0.00392156f;  // 1/255
+    private static final float oneOver255 = 0.00392156f;  // 1/255
 
 
 
@@ -25,7 +25,7 @@ public class Surface {
     public Surface(float redValue, float greenValue, float blueValue, float ambient, float diffuse, float specular, float n, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
         ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
-        reflectanceCoefficient = reflectance*I255; transmissionCoefficient = transmission; nt = index;
+        reflectanceCoefficient = reflectance* oneOver255; transmissionCoefficient = transmission; nt = index;
     }
 
     Color Shade(Vector3D p, Vector3D n, Vector3D v, java.util.List<Object> lights, List<Object> objects, Color background) {
