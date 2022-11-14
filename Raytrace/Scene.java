@@ -1,12 +1,13 @@
 package Raytrace;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Scene {
+public class Scene {
 	final static int CHUNKSIZE = 100;
 	static List<Object> objectList;
 	static List<Object> lightList;
@@ -18,28 +19,23 @@ class Scene {
 	static Color background;
 	int width, height;
 
-	public Scene(int width, int height, String dataFile) {
+	public Scene(int width, int height) {
 		this.width = width;
 		this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		fov = 30; // default horizontal field of view
+
+		eye = new Vector3D(0, 0, 10);
+		lookAt = new Vector3D(0, 0, 0);
+		up = new Vector3D(0, 1, 0);
+		background = new Color(0, 0, 0);
+
 		// Initialize various lists
 		objectList = new ArrayList<>(CHUNKSIZE);
 		lightList = new ArrayList<>(CHUNKSIZE);
 		currentSurface = new Surface(0.8f, 0.2f, 0.9f, 0.2f, 0.4f, 0.4f, 10.0f, 0f, 0f, 1f);
-		// Parse the scene file
-		String filename = dataFile != null ? dataFile : "defaultScene.txt";
-		// Initialize more defaults if they weren't specified
-		if (eye == null)
-			eye = new Vector3D(0, 0, 10);
-		if (lookAt == null)
-			lookAt = new Vector3D(0, 0, 0);
-		if (up == null)
-			up = new Vector3D(0, 1, 0);
-		if (background == null)
-			background = new Color(0, 0, 0);
-		// Compute viewing matrix that maps a
-		// screen coordinate to a ray direction
+
+		// Compute viewing matrix that maps a screen coordinate to a ray direction
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
 		Du = Vector3D.normalize(look.cross(up));
 		Dv = Vector3D.normalize(look.cross(Du));
@@ -61,48 +57,39 @@ class Scene {
 	/**
 	 * add a new sphere to the scene
 	 *
-	 * @param x X-position of the sphere
-	 * @param y Y-position of the sphere
-	 * @param z Z-position of the sphere
-	 * @param r radius of the sphere
+	 * @param v     direction:Vector3D {@link Vector3D}
+	 * @param r 	radius of the sphere
 	 */
-	public final void addSphere(float x, float y, float z, float r) {
-		Vector3D v = new Vector3D(x, y, z);
-		objectList.add(new Sphere(currentSurface, v, r));
+	public final void addSphere(Surface s,Vector3D v,  float r) {
+		objectList.add(new Sphere(s, v, r));
 	}
 
 	/**
 	 * Set the position of the eye.
 	 *
-	 * @param x X-position of the eye
-	 * @param y Y-position of the eye
-	 * @param z Z-position of the eye
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setEye(float x, float y, float z) {
-		eye = new Vector3D(x, y, z);
+	public final void setEye(Vector3D v) {
+		eye = v;
 	}
 
 	// not sure what lookat is :(
 	/**
 	 * Set the position of lookAt.
 	 *
-	 * @param x X-position
-	 * @param y Y-position
-	 * @param z Z-position
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setLookAt(float x, float y, float z) {
-		lookAt = new Vector3D(x, y, z);
+	public final void setLookAt(Vector3D v) {
+		lookAt = v;
 	}
 
 	/**
 	 * Set the position of up.
 	 *
-	 * @param x X-position
-	 * @param y Y-position
-	 * @param z Z-position
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setUp(float x, float y, float z) {
-		up = new Vector3D(x, y, z);
+	public final void setUp(Vector3D v) {
+		up = v;
 	}
 
 	/**
@@ -126,52 +113,55 @@ class Scene {
 	}
 
 	/**
-	 * Add a light to the scene.
+	 * Add ambient light to the scene.
 	 *
 	 * @param r         Red
 	 * @param g         Green
 	 * @param b         Blue
-	 * @param x         X-position
-	 * @param y         Y-position
-	 * @param z         Z-position
-	 * @param lightType "ambient", "directional", or "point"
 	 */
-	public final void addLight(float r, float g, float b, float x, float y, float z, String lightType) {
-		Vector3D v = new Vector3D(x, y, z);
-		if (lightType == "ambient") {
-			lightList.add(new Light(Light.AMBIENT, null, r, g, b));
-		} else if (lightType == "directional") {
-			lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
-		} else if (lightType == "point") {
-			lightList.add(new Light(Light.POINT, v, r, g, b));
-		} else {
-			throw new IllegalArgumentException("lightType can only be: ambient, directional, or point.");
-		}
+	public final void addAmbientLight(float r, float g, float b) {
+		lightList.add(new Light(Light.AMBIENT, null, r, g, b));
 	}
-
 	/**
-	 * Changes the current surface of the scene.
+	 * Add a direction light to the scene.
 	 *
-	 * @param r     Red
-	 * @param g     Green
-	 * @param b     Blue
-	 * @param ka    Ambient reflection constant
-	 * @param kd    Diffuse reflection constant
-	 * @param ks    Specular reflection constant
-	 * @param ns    TODO
-	 * @param kr    TODO
-	 * @param kt    TODO
-	 * @param index TODO
+	 * @param r         Red
+	 * @param g         Green
+	 * @param b         Blue
+	 * @param v         direction:Vector3D {@link Vector3D}
 	 */
-	public final void changeCurrentSurface(float r, float g, float b, float ka, float kd, float ks, float ns, float kr,
-										   float kt, float index) {
-		currentSurface = new Surface(r, g, b, ka, kd, ks, ns, kr, kt, index);
+	public final void addDirectionalLight(float r, float g, float b, Vector3D v) {
+		lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
+	}
+	/**
+	 * Add a point light to the scene.
+	 *
+	 * @param r         Red
+	 * @param g         Green
+	 * @param b         Blue
+	 * @param v         direction:Vector3D {@link Vector3D}
+	 */
+	public final void addPointLight(float r, float g, float b, Vector3D v) {
+		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
 	Image getRenderedImage() {
 		return canvas;
 	}
 
+	/**
+	 * TODO
+	 * Output rendered image to current working directory in jpeg format
+	 */
+	public void saveRenderedImage() throws IOException {
+		File outfile = new File("out.jpg");
+		ImageIO.write(canvas, "jpg", outfile);
+	}
+
+
+	/**
+	 * TODO
+	 */
 	public void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(
 				i * Du.x + j * Dv.x + Vp.x,
