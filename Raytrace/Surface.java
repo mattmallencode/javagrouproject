@@ -18,85 +18,8 @@ public class Surface {
     protected float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
     private static final float I255 = 0.00392156f;  // 1/255
-    public float getIntrinsicRed() {
-        return intrinsicRed;
-    }
 
-    public void setIntrinsicRed(float intrinsicRed) {
-        this.intrinsicRed = intrinsicRed;
-    }
 
-    public float getIntrinsicGreen() {
-        return intrinsicGreen;
-    }
-
-    public void setIntrinsicGreen(float intrinsicGreen) {
-        this.intrinsicGreen = intrinsicGreen;
-    }
-
-    public float getIntrinsicBlue() {
-        return intrinsicBlue;
-    }
-
-    public void setIntrinsicBlue(float intrinsicBlue) {
-        this.intrinsicBlue = intrinsicBlue;
-    }
-
-    public float getAmbientReflectionCoefficient() {
-        return ambientReflectionCoefficient;
-    }
-
-    public void setAmbientReflectionCoefficient(float ambientReflectionCoefficient) {
-        this.ambientReflectionCoefficient = ambientReflectionCoefficient;
-    }
-
-    public float getDiffuseReflectionCoefficient() {
-        return diffuseReflectionCoefficient;
-    }
-
-    public void setDiffuseReflectionCoefficient(float diffuseReflectionCoefficient) {
-        this.diffuseReflectionCoefficient = diffuseReflectionCoefficient;
-    }
-
-    public float getSpecularReflectionCoefficient() {
-        return specularReflectionCoefficient;
-    }
-
-    public void setSpecularReflectionCoefficient(float specularReflectionCoefficient) {
-        this.specularReflectionCoefficient = specularReflectionCoefficient;
-    }
-
-    public float getPhongExponent() {
-        return phongExponent;
-    }
-
-    public void setPhongExponent(float phongExponent) {
-        this.phongExponent = phongExponent;
-    }
-
-    public float getTransmissionCoefficient() {
-        return transmissionCoefficient;
-    }
-
-    public void setTransmissionCoefficient(float transmissionCoefficient) {
-        this.transmissionCoefficient = transmissionCoefficient;
-    }
-
-    public float getReflectanceCoefficient() {
-        return reflectanceCoefficient;
-    }
-
-    public void setReflectanceCoefficient(float reflectanceCoefficient) {
-        this.reflectanceCoefficient = reflectanceCoefficient;
-    }
-
-    public float getNt() {
-        return nt;
-    }
-
-    public void setNt(float nt) {
-        this.nt = nt;
-    }
 
 
     public Surface(float redValue, float greenValue, float blueValue, float ambient, float diffuse, float specular, float n, float reflectance, float transmission, float index) {
