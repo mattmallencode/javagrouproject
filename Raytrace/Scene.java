@@ -1,5 +1,6 @@
 package Raytrace;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -23,21 +24,18 @@ public class Scene {
 		this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		fov = 30; // default horizontal field of view
+
+		eye = new Vector3D(0, 0, 10);
+		lookAt = new Vector3D(0, 0, 0);
+		up = new Vector3D(0, 1, 0);
+		background = new Color(0, 0, 0);
+
 		// Initialize various lists
 		objectList = new ArrayList<>(CHUNKSIZE);
 		lightList = new ArrayList<>(CHUNKSIZE);
 		currentSurface = new Surface(0.8f, 0.2f, 0.9f, 0.2f, 0.4f, 0.4f, 10.0f, 0f, 0f, 1f);
 
-		if (eye == null)
-			eye = new Vector3D(0, 0, 10);
-		if (lookAt == null)
-			lookAt = new Vector3D(0, 0, 0);
-		if (up == null)
-			up = new Vector3D(0, 1, 0);
-		if (background == null)
-			background = new Color(0, 0, 0);
-		// Compute viewing matrix that maps a
-		// screen coordinate to a ray direction
+		// Compute viewing matrix that maps a screen coordinate to a ray direction
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
 		Du = Vector3D.normalize(look.cross(up));
 		Dv = Vector3D.normalize(look.cross(Du));
@@ -170,6 +168,19 @@ public class Scene {
 		return canvas;
 	}
 
+	/**
+	 * TODO
+	 * Output rendered image to current working directory in jpeg format
+	 */
+	public void saveRenderedImage() throws IOException {
+		File outfile = new File("out.jpg");
+		ImageIO.write(canvas, "jpg", outfile);
+	}
+
+
+	/**
+	 * TODO
+	 */
 	public void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(
 				i * Du.x + j * Dv.x + Vp.x,
