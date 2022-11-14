@@ -59,14 +59,11 @@ public class Scene {
 	/**
 	 * add a new sphere to the scene
 	 *
-	 * @param x X-position of the sphere
-	 * @param y Y-position of the sphere
-	 * @param z Z-position of the sphere
-	 * @param r radius of the sphere
+	 * @param v     direction:Vector3D {@link Vector3D}
+	 * @param r 	radius of the sphere
 	 */
-	public final void addSphere(float x, float y, float z, float r) {
-		Vector3D v = new Vector3D(x, y, z);
-		objectList.add(new Sphere(currentSurface, v, r));
+	public final void addSphere(Surface s,Vector3D v,  float r) {
+		objectList.add(new Sphere(s, v, r));
 	}
 
 	/**
