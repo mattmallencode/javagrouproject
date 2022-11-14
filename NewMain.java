@@ -23,9 +23,6 @@ public class NewMain {
         s.addSphere(new Surface(0.7F, 0.3F, 0.2F, 0.5F, 0.9F, 0.4F, 6.0F, 0F, 0F, 1F),
                     new Vector3D(-0.6F, 1.05F, -0.6F), 0.3F);
 
-        s.addSphere(new Surface(0.2F, 0.8F, 0.2F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
-                    new Vector3D(-0.4F, 0.375F, -0.4F), 0.375F);
-
         s.addSphere(new Surface(0.2F, 0.3F, 0.8F, 0.5F, 0.9F, 0.4F, 10.0F, 0F, 0F, 1F),
                     new Vector3D(-0.8F, 1.575F, -0.8F), 0.125F);
 
