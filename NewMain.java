@@ -1,9 +1,6 @@
 import Raytrace.*;
 import Raytrace.Surface;
 import Raytrace.Vector3D;
-
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class NewMain {
@@ -32,7 +29,7 @@ public class NewMain {
 
 
         s.renderImage();
-        s.saveRenderedImage();
+        s.saveRenderedImage("out.png");
 
 
     }

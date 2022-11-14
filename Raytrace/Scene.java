@@ -130,9 +130,9 @@ public class Scene {
 	 * TODO
 	 * Output rendered image to current working directory in jpeg format
 	 */
-	public void saveRenderedImage() throws IOException {
+	public void saveRenderedImage(String filePath) throws IOException {
 		BufferedImage img = canvas;
-		File f = new File("out.png");
+		File f = new File(filePath);
 		ImageIO.write(img, "PNG", f);
 
 	}
