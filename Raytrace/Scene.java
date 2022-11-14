@@ -69,35 +69,29 @@ public class Scene {
 	/**
 	 * Set the position of the eye.
 	 *
-	 * @param x X-position of the eye
-	 * @param y Y-position of the eye
-	 * @param z Z-position of the eye
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setEye(float x, float y, float z) {
-		eye = new Vector3D(x, y, z);
+	public final void setEye(Vector3D v) {
+		eye = v;
 	}
 
 	// not sure what lookat is :(
 	/**
 	 * Set the position of lookAt.
 	 *
-	 * @param x X-position
-	 * @param y Y-position
-	 * @param z Z-position
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setLookAt(float x, float y, float z) {
-		lookAt = new Vector3D(x, y, z);
+	public final void setLookAt(Vector3D v) {
+		lookAt = v;
 	}
 
 	/**
 	 * Set the position of up.
 	 *
-	 * @param x X-position
-	 * @param y Y-position
-	 * @param z Z-position
+	 * @param v     direction:Vector3D {@link Vector3D}
 	 */
-	public final void setUp(float x, float y, float z) {
-		up = new Vector3D(x, y, z);
+	public final void setUp(Vector3D v) {
+		up = v;
 	}
 
 	/**

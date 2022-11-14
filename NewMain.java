@@ -5,8 +5,8 @@ import Raytrace.Vector3D;
 public class NewMain {
     public static void main(String[] args) {
         Scene s = new Scene(600, 600);
-        s.setEye(1.5F, 10.5F, -1.5F);
-        s.setLookAt(-0.5F, 0F, -0.5F);
+        s.setEye(new Vector3D(1.5F, 10.5F, -1.5F));
+        s.setLookAt(new Vector3D(-0.5F, 0F, -0.5F));
 
         s.addAmbientLight(1.0F, 1.0F, 0.981F);
         s.addAmbientLight(0.9F, 0.9F, 0.9F);
