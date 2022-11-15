@@ -84,13 +84,13 @@ public class Sphere implements Renderable {
         float py = ray.origin.y + ray.getT() * ray.direction.y;
         float pz = ray.origin.z + ray.getT() * ray.direction.z;
 
-        Vector3D p = new Vector3D(px, py, pz);
-        Vector3D v = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
-        Vector3D n = new Vector3D(px - center.x, py - center.y, pz - center.z);
-        n.normalize();
+        Vector3D pointOfIntersection = new Vector3D(px, py, pz);
+        Vector3D vectorUnitLength = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
+        Vector3D normalUnitLength = new Vector3D(px - center.x, py - center.y, pz - center.z);
+        normalUnitLength.normalize();
 
 
-        return surface.Shade(p, n, v, lights, objects, background);
+        return surface.Shade(pointOfIntersection, normalUnitLength, vectorUnitLength, lights, objects, background);
     }
 
     /**
