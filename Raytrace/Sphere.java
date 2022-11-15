@@ -67,9 +67,9 @@ public class Sphere implements Renderable {
     /**
      * Supplies critical bits of geometric information for a surface shader. It computes:
      * <ol>
-     *     <li>the point of intersection {@code }</li>
-     *     <li>a unit-length surface normal {@code }</li>
-     *     <li>a unit-length vector towards the ray's origin {@code }</li>
+     *     <li>the point of intersection {@code pointOfIntersection}</li>
+     *     <li>a unit-length surface normal {@code normalUnitLength}</li>
+     *     <li>a unit-length vector towards the ray's origin {@code vectorUnitLength}</li>
      * </ol>
      *
      * @param ray Ray object
