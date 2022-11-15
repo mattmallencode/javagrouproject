@@ -18,6 +18,12 @@ public class Scene {
 	static Color background;
 	int width, height;
 
+	/**
+	 * Initialize a scene with default configuration.
+	 *
+	 * @param width			Horizontal resolution of the scene.
+	 * @param height		Vertical resolution of the scene.
+	 */
 	public Scene(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -36,10 +42,10 @@ public class Scene {
 	}
 
 	/**
-	 * add a new sphere to the scene
+	 * Add a new sphere to the scene.
 	 *
-	 * @param v     direction:Vector3D {@link Vector3D}
-	 * @param r 	radius of the sphere
+	 * @param v			Position of the sphere in the scene {@link Vector3D}
+	 * @param r			Radius of the sphere
 	 */
 	public final void addSphere(Surface s,Vector3D v,  float r) {
 		objectList.add(new Sphere(s, v, r));
@@ -48,17 +54,16 @@ public class Scene {
 	/**
 	 * Set the position of the eye.
 	 *
-	 * @param v     direction:Vector3D {@link Vector3D}
+	 * @param v			Position of the eye in the scene {@link Vector3D}
 	 */
 	public final void setEye(Vector3D v) {
 		eye = v;
 	}
 
-	// not sure what lookAt is :(
 	/**
-	 * Set the position of lookAt.
+	 * Set the position that the eye is looking at.
 	 *
-	 * @param v     direction:Vector3D {@link Vector3D}
+	 * @param v			Position of the eye looking at. {@link Vector3D}
 	 */
 	public final void setLookAt(Vector3D v) {
 		lookAt = v;
@@ -67,7 +72,7 @@ public class Scene {
 	/**
 	 * Set the position of up.
 	 *
-	 * @param v     direction:Vector3D {@link Vector3D}
+	 * @param v			Position of the up. {@link Vector3D}
 	 */
 	public final void setUp(Vector3D v) {
 		up = v;
@@ -76,18 +81,18 @@ public class Scene {
 	/**
 	 * Set the field of view.
 	 *
-	 * @param f fov
+	 * @param f			Value of the field of view.
 	 */
 	public final void setFov(float f) {
 		fov = f;
 	}
 
 	/**
-	 * Set the colour of the background.
+	 * Set the background colour of the scene.
 	 *
-	 * @param r Red
-	 * @param g Greed
-	 * @param b Blue
+	 * @param r			Red
+	 * @param g			Greed
+	 * @param b			Blue
 	 */
 	public final void setBackground(float r, float g, float b) {
 		background = new Color(r, g, b);
@@ -109,7 +114,7 @@ public class Scene {
 	 * @param r         Red
 	 * @param g         Green
 	 * @param b         Blue
-	 * @param v         direction:Vector3D {@link Vector3D}
+	 * @param v         position {@link Vector3D}
 	 */
 	public final void addDirectionalLight(float r, float g, float b, Vector3D v) {
 		lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
@@ -120,27 +125,40 @@ public class Scene {
 	 * @param r         Red
 	 * @param g         Green
 	 * @param b         Blue
-	 * @param v         direction:Vector3D {@link Vector3D}
+	 * @param v         Position {@link Vector3D}
 	 */
 	public final void addPointLight(float r, float g, float b, Vector3D v) {
 		lightList.add(new Light(Light.POINT, v, r, g, b));
 	}
 
-	public Image getRenderedImage() {
-		return canvas;
-	}
-
 	/**
-	 * TODO
-	 * Output rendered image to current working directory in jpeg format
+	 * Output rendered image to current working directory in PNG format.
+	 *
+	 * @param filePath			File path to store the output image file.
+	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
 	public void saveRenderedImage(String filePath) throws IOException {
 		BufferedImage img = canvas;
 		File f = new File(filePath);
 		ImageIO.write(img, "PNG", f);
-
 	}
 
+	/**
+	 * Overload method.
+	 * Output rendered image to ./out.png in PNG format, if the filePath not provided.
+	 *
+	 * @throws IOException		If unable to write file to specified location in the file system.
+	 */
+	public void saveRenderedImage() throws IOException {
+		BufferedImage img = canvas;
+		File f = new File("./out.png");
+		ImageIO.write(img, "PNG", f);
+	}
+
+
+	/**
+	 * Take all the configurations and render the scene to the image.
+	 */
 	public void renderImage() {
 		// Compute viewing matrix that maps a screen coordinate to a ray direction
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
@@ -151,6 +169,7 @@ public class Scene {
 		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
 		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
 		Vp.z = Vp.z * fl - 0.5f * (width * Du.z + height * Dv.z);
+
 		for (int j = 0; j < this.height; j += 1) {
 			for (int i = 0; i < this.width; i += 1) {
 				renderPixel(i, j);
@@ -159,9 +178,11 @@ public class Scene {
 	}
 
 	/**
-	 * TODO
+	 * Render a particular pixel
+	 * @param i x-axis position of the pixel to be rendered
+	 * @param j	x-axis position of the pixel to be rendered
 	 */
-	public void renderPixel(int i, int j) {
+	private void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(
 				i*Du.x + j*Dv.x + Vp.x,
 				i*Du.y + j*Dv.y + Vp.y,
