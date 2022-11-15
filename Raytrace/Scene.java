@@ -137,7 +137,7 @@ public class Scene {
 	 * @param filePath			File path to store the output image file.
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage(String filePath) throws IOException {
+	public final void saveRenderedImage(String filePath) throws IOException {
 		BufferedImage img = canvas;
 		File f = new File(filePath);
 		ImageIO.write(img, "PNG", f);
@@ -149,7 +149,7 @@ public class Scene {
 	 *
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage() throws IOException {
+	public final void saveRenderedImage() throws IOException {
 		BufferedImage img = canvas;
 		File f = new File("./out.png");
 		ImageIO.write(img, "PNG", f);
@@ -159,7 +159,7 @@ public class Scene {
 	/**
 	 * Take all the configurations and render the scene to the image.
 	 */
-	public void renderImage() {
+	public final void renderImage() {
 		// Compute viewing matrix that maps a screen coordinate to a ray direction
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
 		Du = Vector3D.normalize(look.cross(up));
