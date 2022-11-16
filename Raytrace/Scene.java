@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
-	private final static int CHUNKSIZE = 100;
+	private final static int CHUNK_SIZE = 100;
 	private static List<Object> objectList;
 	private static List<Object> lightList;
 	private static BufferedImage canvas;
@@ -36,8 +36,8 @@ public class Scene {
 		background = new Color(0, 0, 0);
 
 		// Initialize various lists
-		objectList = new ArrayList<>(CHUNKSIZE);
-		lightList = new ArrayList<>(CHUNKSIZE);
+		objectList = new ArrayList<>(CHUNK_SIZE);
+		lightList = new ArrayList<>(CHUNK_SIZE);
 
 	}
 
