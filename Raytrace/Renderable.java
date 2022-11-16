@@ -10,8 +10,8 @@ public interface Renderable {
      * This method checks if there is an intersection with ray.
      * Returns a boolean to verify whether an intersection occurred or not.
      *
-     * @param r Ray object
-     * @return boolean
+     * @param r Ray instance that is checked for intersection
+     * @return boolean to verify whether an intersection occurred or not.
      */
     boolean intersect(Ray r);
 
