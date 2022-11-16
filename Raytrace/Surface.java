@@ -27,7 +27,7 @@ public class Surface {
      */
     public Surface(float redValue, float greenValue, float blueValue, float ambientReflection, float diffuseReflection, float specularReflection, float phongExp, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
-        ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
+        ambientReflectionCoefficient = ambientReflection; diffuseReflectionCoefficient = diffuseReflection; specularReflectionCoefficient = specularReflection; phongExponent = phongExp;
         reflectanceCoefficient = reflectance* ONE_OVER_255; transmissionCoefficient = transmission; nt = index;
     }
 
