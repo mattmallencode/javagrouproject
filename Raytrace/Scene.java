@@ -178,9 +178,9 @@ public class Scene {
 	}
 
 	/**
-	 * Render a particular pixel
-	 * @param i x-axis position of the pixel to be rendered
-	 * @param j	x-axis position of the pixel to be rendered
+	 * Render a particular pixel.
+	 * @param i		x-axis position of the pixel to be rendered
+	 * @param j		x-axis position of the pixel to be rendered
 	 */
 	private void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(

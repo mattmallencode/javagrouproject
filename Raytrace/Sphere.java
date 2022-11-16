@@ -18,10 +18,10 @@ public class Sphere implements Renderable {
     }
 
     public boolean intersect(Ray ray) {
-        float dx = center.x - ray.origin.x;
-        float dy = center.y - ray.origin.y;
-        float dz = center.z - ray.origin.z;
-        float v = ray.direction.dot(dx, dy, dz);
+        float dx = center.x - ray.getOrigin().x;
+        float dy = center.y - ray.getOrigin().y;
+        float dz = center.z - ray.getOrigin().z;
+        float v = ray.getDirection().dot(dx, dy, dz);
 
         // Do the following quick check to see if there is even a chance
         // that an intersection here might be closer than a previous one
@@ -40,7 +40,7 @@ public class Sphere implements Renderable {
             return false;
 
         ray.setT(t); //= t;
-        ray.object = this;
+        ray.setObject(this);
         return true;
     }
 
@@ -53,12 +53,12 @@ public class Sphere implements Renderable {
         //   2. a unit-length surface normal (n)
         //   3. a unit-length vector towards the ray's origin (v)
         //
-        float px = ray.origin.x + ray.getT() * ray.direction.x;
-        float py = ray.origin.y + ray.getT() * ray.direction.y;
-        float pz = ray.origin.z + ray.getT() * ray.direction.z;
+        float px = ray.getOrigin().x + ray.getT() * ray.getDirection().x;
+        float pz = ray.getOrigin().z + ray.getT() * ray.getDirection().z;
+        float py = ray.getOrigin().y + ray.getT() * ray.getDirection().y;
 
         Vector3D p = new Vector3D(px, py, pz);
-        Vector3D v = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
+        Vector3D v = new Vector3D(-ray.getDirection().x, -ray.getDirection().y, -ray.getDirection().z);
         Vector3D n = new Vector3D(px - center.x, py - center.y, pz - center.z);
         n.normalize();
 
