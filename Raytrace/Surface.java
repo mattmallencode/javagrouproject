@@ -77,7 +77,7 @@ public class Surface {
                     }
                     if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
-                        float spec = v.dotMultiplicatoin(lambert*n.getX() - l.getX(), lambert*n.getY() - l.getY(), lambert*n.getZ() - l.getZ());
+                        float spec = v.dotMultiplication(lambert*n.getX() - l.getX(), lambert*n.getY() - l.getY(), lambert*n.getZ() - l.getZ());
 
                         if (spec > 0) {
                             spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
