@@ -13,7 +13,7 @@ public class Sphere implements Renderable {
     private Surface surface;
     private Vector3D center;
     private float radius;
-    private float radiusSquare;
+    private float radiusSquared;
 
     /**
      * A constructor for Sphere, that receives three parameters and instantiate four variables.
@@ -26,7 +26,7 @@ public class Sphere implements Renderable {
         surface = s;
         center = c;
         radius = r;
-        radiusSquare = r * r;
+        radiusSquared = r * r;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Sphere implements Renderable {
         if (v - radius > ray.getT())
             return false;
 
-        float t = radiusSquare + v * v - dx * dx - dy * dy - dz * dz;
+        float t = radiusSquared + v * v - dx * dx - dy * dy - dz * dz;
         if (t < 0)
             return false;
 
@@ -93,10 +93,10 @@ public class Sphere implements Renderable {
         float pz = ray.getOrigin().getZ() + ray.getT() * ray.getDirection().getZ();
         float py = ray.getOrigin().getY() + ray.getT() * ray.getDirection().getY();
 
-        Vector3D p = new Vector3D(px, py, pz);
-        Vector3D v = new Vector3D(-ray.getDirection().x, -ray.getDirection().y, -ray.getDirection().z);
-        Vector3D n = new Vector3D(px - center.getX(), py - center.getY(), pz - center.getZ());
-        n.normalize();
+        Vector3D pointOfIntersection = new Vector3D(px, py, pz);
+        Vector3D vectorUnitLength = new Vector3D(-ray.getDirection().getX(), -ray.getDirection().getY(), -ray.getDirection().getZ());
+        Vector3D normalUnitLength = new Vector3D(px - center.getX(), py - center.getY(), pz - center.getZ());
+        normalUnitLength.normalize();
 
 
         return surface.Shade(pointOfIntersection, normalUnitLength, vectorUnitLength, lights, objects, background);
