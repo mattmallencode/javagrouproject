@@ -10,10 +10,10 @@ import java.util.List;
  *
  */
 public class Sphere implements Renderable {
-    protected Surface surface;
-    protected Vector3D center;
-    protected float radius;
-    protected float radiusSquare;
+    private Surface surface;
+    private Vector3D center;
+    private float radius;
+    private float radiusSquare;
 
     /**
      * A constructor for Sphere, that receives three parameters and instantiate four variables.
