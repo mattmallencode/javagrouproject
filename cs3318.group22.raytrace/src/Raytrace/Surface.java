@@ -1,12 +1,13 @@
 package cs3318.group22.raytrace.src.Raytrace;
 
+
+import java.awt.*;
+import java.util.List;
+
 /**
  * A class representing a surface.
  *
  */
-import java.awt.*;
-import java.util.List;
-
 public class Surface {
     private float intrinsicRed, intrinsicGreen, intrinsicBlue;        // surface's intrinsic color
     private float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
