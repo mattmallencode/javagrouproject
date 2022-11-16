@@ -43,12 +43,10 @@ public class Sphere implements Renderable {
      */
     @Override
     public boolean intersect(Ray ray) {
-        float dx = center.x - ray.getOrigin().x;
-        float dy = center.y - ray.getOrigin().y;
-        float dz = center.z - ray.getOrigin().z;
+        float dx = center.getX() - ray.getOrigin().getX();
+        float dy = center.getY() - ray.getOrigin().getY();
+        float dz = center.getZ() - ray.getOrigin().getZ();
         float v = ray.getDirection().dot(dx, dy, dz);
-
-
         if (v - radius > ray.getT())
             return false;
 
@@ -90,13 +88,13 @@ public class Sphere implements Renderable {
         //   2. a unit-length surface normal (n)
         //   3. a unit-length vector towards the ray's origin (v)
         //
-        float px = ray.getOrigin().x + ray.getT() * ray.getDirection().x;
-        float pz = ray.getOrigin().z + ray.getT() * ray.getDirection().z;
-        float py = ray.getOrigin().y + ray.getT() * ray.getDirection().y;
+        float px = ray.getOrigin().getX() + ray.getT() * ray.getDirection().getX();
+        float pz = ray.getOrigin().getZ() + ray.getT() * ray.getDirection().getZ();
+        float py = ray.getOrigin().getY() + ray.getT() * ray.getDirection().getY();
 
         Vector3D p = new Vector3D(px, py, pz);
         Vector3D v = new Vector3D(-ray.getDirection().x, -ray.getDirection().y, -ray.getDirection().z);
-        Vector3D n = new Vector3D(px - center.x, py - center.y, pz - center.z);
+        Vector3D n = new Vector3D(px - center.getX(), py - center.getY(), pz - center.getZ());
         n.normalize();
 
 
