@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/cs3318.group22.raytrace/cs3318.group22.raytrace.iml" filepath="$PROJECT_DIR$/cs3318.group22.raytrace/cs3318.group22.raytrace.iml" />
       <module fileurl="file://$PROJECT_DIR$/raytracing.iml" filepath="$PROJECT_DIR$/raytracing.iml" />
     </modules>
   </component>

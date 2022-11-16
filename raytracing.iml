@@ -18,5 +18,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="cs3318.group22.raytrace" />
   </component>
 </module>
