@@ -18,15 +18,15 @@ public class Sphere implements Renderable {
     /**
      * A constructor for Sphere, that receives three parameters and instantiate four variables.
      *
-     * @param s Surface object
-     * @param c Vector3d object
-     * @param r radius as a float
+     * @param surface Surface object
+     * @param center Vector3d object
+     * @param radius radius as a float
      */
-    public Sphere(Surface s, Vector3D c, float r) {
-        surface = s;
-        center = c;
-        radius = r;
-        radiusSquared = r * r;
+    public Sphere(Surface surface, Vector3D center, float radius) {
+        this.surface = surface;
+        this.center = center;
+        this.radius = radius;
+        radiusSquared = radius * radius;
     }
 
     /**
