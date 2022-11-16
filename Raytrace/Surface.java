@@ -5,9 +5,9 @@ import java.awt.*;
 import java.util.List;
 
 public class Surface {
-    protected float intrinsicRed, intrinsicGreen, intrinsicBlue;        // surface's intrinsic color
-    protected float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
-    protected float transmissionCoefficient, reflectanceCoefficient, nt;
+    private float intrinsicRed, intrinsicGreen, intrinsicBlue;        // surface's intrinsic color
+    private float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
+    private float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
     private static final float ONE_OVER_255 = 0.00392156f;  // 1/255
 
@@ -55,14 +55,14 @@ public class Surface {
             } else {
                 Vector3D l;
                 if (light.getLightType() == Light.POINT) {
-                    l = new Vector3D(light.getLightVector().x - p.x, light.getLightVector().y - p.y, light.getLightVector().z - p.z);
+                    l = new Vector3D(light.getLightVector().getX() - p.getX(), light.getLightVector().getY() - p.getY(), light.getLightVector().getZ() - p.getZ());
                     l.normalize();
                 } else {
-                    l = new Vector3D(-light.getLightVector().x, -light.getLightVector().y, -light.getLightVector().z);
+                    l = new Vector3D(-light.getLightVector().getX(), -light.getLightVector().getY(), -light.getLightVector().getZ());
                 }
 
                 // Check if the surface point is in shadow
-                Vector3D pointOffset = new Vector3D(p.x + TINY*l.x, p.y + TINY*l.y, p.z + TINY*l.z);
+                Vector3D pointOffset = new Vector3D(p.getX() + TINY*l.getX(), p.getY() + TINY*l.getY(), p.getZ() + TINY*l.getZ());
                 Ray shadowRay = new Ray(pointOffset, l);
                 if (shadowRay.trace(objects))
                     break;
@@ -77,7 +77,8 @@ public class Surface {
                     }
                     if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
-                        float spec = v.dotMultiplication(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
+                        float spec = v.dotMultiplicatoin(lambert*n.getX() - l.getX(), lambert*n.getY() - l.getY(), lambert*n.getZ() - l.getZ());
+
                         if (spec > 0) {
                             spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
                             red += spec*light.getIntensityRed();
@@ -94,8 +95,8 @@ public class Surface {
             float t = v.dotMultiplication(n);
             if (t > 0) {
                 t *= 2;
-                Vector3D reflect = new Vector3D(t*n.x - v.x, t*n.y - v.y, t*n.z - v.z);
-                Vector3D pointOffset = new Vector3D(p.x + TINY*reflect.x, p.y + TINY*reflect.y, p.z + TINY*reflect.z);
+                Vector3D reflect = new Vector3D(t*n.getX() - v.getX(), t*n.getY() - v.getY(), t*n.getZ() - v.getZ());
+                Vector3D pointOffset = new Vector3D(p.getX() + TINY*reflect.getX(), p.getY() + TINY*reflect.getY(), p.getZ() + TINY*reflect.getZ());
                 Ray reflectedRay = new Ray(pointOffset, reflect);
                 if (reflectedRay.trace(objects)) {
                     Color reflectedColor = reflectedRay.Shade(lights, objects, background);

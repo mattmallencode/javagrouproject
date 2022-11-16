@@ -137,7 +137,7 @@ public class Scene {
 	 * @param filePath			File path to store the output image file.
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage(String filePath) throws IOException {
+	public final void saveRenderedImage(String filePath) throws IOException {
 		BufferedImage img = canvas;
 		File f = new File(filePath);
 		ImageIO.write(img, "PNG", f);
@@ -149,7 +149,7 @@ public class Scene {
 	 *
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage() throws IOException {
+	public final void saveRenderedImage() throws IOException {
 		BufferedImage img = canvas;
 		File f = new File("./out.png");
 		ImageIO.write(img, "PNG", f);
@@ -159,16 +159,16 @@ public class Scene {
 	/**
 	 * Take all the configurations and render the scene to the image.
 	 */
-	public void renderImage() {
+	public final void renderImage() {
 		// Compute viewing matrix that maps a screen coordinate to a ray direction
-		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
+			Vector3D look = new Vector3D(lookAt.getX() - eye.getX(), lookAt.getY() - eye.getY(), lookAt.getZ() - eye.getZ());
 		Du = Vector3D.normalize(look.cross(up));
 		Dv = Vector3D.normalize(look.cross(Du));
 		float fl = (float) (width / (2 * Math.tan((0.5 * fieldOfView) * Math.PI / 180)));
 		Vp = Vector3D.normalize(look);
-		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
-		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
-		Vp.z = Vp.z * fl - 0.5f * (width * Du.z + height * Dv.z);
+		Vp.setX(Vp.getX() * fl - 0.5f * (width * Du.getX() + height * Dv.getX()));
+		Vp.setY(Vp.getY() * fl - 0.5f * (width * Du.getY() + height * Dv.getY()));
+		Vp.setZ(Vp.getZ() * fl - 0.5f * (width * Du.getZ() + height * Dv.getZ()));
 
 		for (int j = 0; j < this.height; j += 1) {
 			for (int i = 0; i < this.width; i += 1) {
@@ -178,15 +178,15 @@ public class Scene {
 	}
 
 	/**
-	 * Render a particular pixel
-	 * @param i x-axis position of the pixel to be rendered
-	 * @param j	x-axis position of the pixel to be rendered
+	 * Render a particular pixel.
+	 * @param i		x-axis position of the pixel to be rendered
+	 * @param j		x-axis position of the pixel to be rendered
 	 */
 	private void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(
-				i*Du.x + j*Dv.x + Vp.x,
-				i*Du.y + j*Dv.y + Vp.y,
-				i*Du.z + j*Dv.z + Vp.z);
+				i*Du.getX() + j*Dv.getX() + Vp.getX(),
+				i*Du.getY() + j*Dv.getY() + Vp.getY(),
+				i*Du.getZ() + j*Dv.getZ() + Vp.getZ());
 		Ray ray = new Ray(eye, dir);
 		Color pixelColour;
 
