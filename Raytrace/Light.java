@@ -8,8 +8,7 @@ class Light {
     public static final int POINT = 2;
 
     protected int lightType;
-    protected Vector3D lightVector;           // the position of a point light or
-                                     // the direction to a directional light
+    protected Vector3D lightVector;
     protected float intensityRed;
     protected float intensityGreen;
     protected float intensityBlue;                // intensity of the light source
@@ -35,7 +34,15 @@ class Light {
         return intensityGreen;
     }
 
-
+    /**
+     * Initialises light with constructor parameters.
+     *
+     * @param type      Value of light type
+     * @param v         The position of a point light or the direction to a directional light
+     * @param r         Intensity of red colour
+     * @param g         Intensity of green colour
+     * @param b         Intensity of blue colour
+     */
     public Light(int type, Vector3D v, float r, float g, float b) {
         lightType = type;
         intensityRed = r;
