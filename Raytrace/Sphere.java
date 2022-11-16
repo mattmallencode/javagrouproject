@@ -22,7 +22,7 @@ public class Sphere implements Renderable {
      * @param center Vector3d object
      * @param radius radius as a float
      */
-    public Sphere(Surface surface, Vector3D center, float radius) {
+    Sphere(Surface surface, Vector3D center, float radius) {
         this.surface = surface;
         this.center = center;
         this.radius = radius;
