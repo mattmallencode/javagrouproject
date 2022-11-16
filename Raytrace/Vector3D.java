@@ -40,12 +40,12 @@ public class Vector3D {
     /**
      * Vector3D constructor.
      *
-     * @param v Vector3D object with x, y, and z coordinates.
+     * @param vector Vector3D object with x, y, and z coordinates.
      */
-    public Vector3D(Vector3D v) {
-        x = v.x;
-        y = v.y;
-        z = v.z;
+    public Vector3D(Vector3D vector) {
+        x = vector.x;
+        y = vector.y;
+        z = vector.z;
     }
 
     /**
@@ -55,7 +55,7 @@ public class Vector3D {
      *
      * @return the coordinates of this vector dot multiplied with the coordinates of the other vector.
      */
-    final float dot(Vector3D B) {
+    final float dotMultiplication(Vector3D B) {
         return (x*B.x + y*B.y + z*B.z);
     }
 
@@ -68,7 +68,7 @@ public class Vector3D {
      *
      * @return the coordinates of this vector dot multiplied with the input coordinates.
      */
-    final float dot(float Bx, float By, float Bz) {
+    final float dotMultiplication(float Bx, float By, float Bz) {
         return (x*Bx + y*By + z*Bz);
     }
 
@@ -80,7 +80,7 @@ public class Vector3D {
      *
      * @return the coordinates of both vectors dot multiplied.
      */
-    static float dot(Vector3D A, Vector3D B) {
+    static float dotMultiplication(Vector3D A, Vector3D B) {
         return (A.x*B.x + A.y*B.y + A.z*B.z);
     }
 

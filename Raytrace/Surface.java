@@ -27,7 +27,7 @@ public class Surface {
      */
     public Surface(float redValue, float greenValue, float blueValue, float ambientReflection, float diffuseReflection, float specularReflection, float phongExp, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
-        ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
+        ambientReflectionCoefficient = ambientReflection; diffuseReflectionCoefficient = diffuseReflection; specularReflectionCoefficient = specularReflection; phongExponent = phongExp;
         reflectanceCoefficient = reflectance* ONE_OVER_255; transmissionCoefficient = transmission; nt = index;
     }
 
@@ -67,7 +67,7 @@ public class Surface {
                 if (shadowRay.trace(objects))
                     break;
 
-                float lambert = Vector3D.dot(n,l);
+                float lambert = Vector3D.dotMultiplication(n,l);
                 if (lambert > 0) {
                     if (diffuseReflectionCoefficient > 0) {
                         float diffuse = diffuseReflectionCoefficient *lambert;
@@ -77,7 +77,8 @@ public class Surface {
                     }
                     if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
-                        float spec = v.dot(lambert*n.getX() - l.getX(), lambert*n.getY() - l.getY(), lambert*n.getZ() - l.getZ());
+                        float spec = v.dotMultiplicatoin(lambert*n.getX() - l.getX(), lambert*n.getY() - l.getY(), lambert*n.getZ() - l.getZ());
+
                         if (spec > 0) {
                             spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
                             red += spec*light.getIntensityRed();
@@ -91,7 +92,7 @@ public class Surface {
 
         // Compute illumination due to reflection
         if (reflectanceCoefficient > 0) {
-            float t = v.dot(n);
+            float t = v.dotMultiplication(n);
             if (t > 0) {
                 t *= 2;
                 Vector3D reflect = new Vector3D(t*n.getX() - v.getX(), t*n.getY() - v.getY(), t*n.getZ() - v.getZ());

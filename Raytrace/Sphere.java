@@ -46,7 +46,8 @@ public class Sphere implements Renderable {
         float dx = center.getX() - ray.getOrigin().getX();
         float dy = center.getY() - ray.getOrigin().getY();
         float dz = center.getZ() - ray.getOrigin().getZ();
-        float v = ray.getDirection().dot(dx, dy, dz);
+        float v = ray.getDirection().dotMultiplication(dx, dy, dz);
+
         if (v - radius > ray.getT())
             return false;
 
