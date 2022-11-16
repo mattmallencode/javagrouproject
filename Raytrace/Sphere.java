@@ -43,10 +43,10 @@ public class Sphere implements Renderable {
      */
     @Override
     public boolean intersect(Ray ray) {
-        float dx = center.x - ray.origin.x;
-        float dy = center.y - ray.origin.y;
-        float dz = center.z - ray.origin.z;
-        float v = ray.direction.dot(dx, dy, dz);
+        float dx = center.x - ray.getOrigin().x;
+        float dy = center.y - ray.getOrigin().y;
+        float dz = center.z - ray.getOrigin().z;
+        float v = ray.getDirection().dot(dx, dy, dz);
 
 
         if (v - radius > ray.getT())
@@ -60,8 +60,8 @@ public class Sphere implements Renderable {
         if ((t > ray.getT()) || (t < 0))
             return false;
 
-        ray.setT(t);
-        ray.object = this;
+        ray.setT(t); //= t;
+        ray.setObject(this);
         return true;
     }
 
@@ -82,14 +82,22 @@ public class Sphere implements Renderable {
     @Override
     public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color background) {
 
-        float px = ray.origin.x + ray.getT() * ray.direction.x;
-        float py = ray.origin.y + ray.getT() * ray.direction.y;
-        float pz = ray.origin.z + ray.getT() * ray.direction.z;
+        // An object shader doesn't really do too much other than
+        // supply a few critical bits of geometric information
+        // for a surface shader. It must compute:
+        //
+        //   1. the point of intersection (p)
+        //   2. a unit-length surface normal (n)
+        //   3. a unit-length vector towards the ray's origin (v)
+        //
+        float px = ray.getOrigin().x + ray.getT() * ray.getDirection().x;
+        float pz = ray.getOrigin().z + ray.getT() * ray.getDirection().z;
+        float py = ray.getOrigin().y + ray.getT() * ray.getDirection().y;
 
-        Vector3D pointOfIntersection = new Vector3D(px, py, pz);
-        Vector3D vectorUnitLength = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
-        Vector3D normalUnitLength = new Vector3D(px - center.x, py - center.y, pz - center.z);
-        normalUnitLength.normalize();
+        Vector3D p = new Vector3D(px, py, pz);
+        Vector3D v = new Vector3D(-ray.getDirection().x, -ray.getDirection().y, -ray.getDirection().z);
+        Vector3D n = new Vector3D(px - center.x, py - center.y, pz - center.z);
+        n.normalize();
 
 
         return surface.Shade(pointOfIntersection, normalUnitLength, vectorUnitLength, lights, objects, background);
