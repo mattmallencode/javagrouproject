@@ -11,6 +11,7 @@ public class Ray {
     protected float t;
     Renderable object;
 
+    // getters and setters
     public float getT() {
         return t;
     }
@@ -18,12 +19,12 @@ public class Ray {
         this.t = t;
     }
 
-    public Ray(Vector3D eye, Vector3D dir) {
+    Ray(Vector3D eye, Vector3D dir) {
         origin = new Vector3D(eye);
         direction = Vector3D.normalize(dir);
     }
 
-    public boolean trace(List<Object> objects) {
+    boolean trace(List<Object> objects) {
         t = MAX_T;
         object = null;
         for (Object objList : objects) {
@@ -40,7 +41,7 @@ public class Ray {
     // to
     //            ray.object.Shade(ray, ...)
     //
-    public final Color Shade(List<Object> lights, List<Object> objects, Color background) {
+    final Color Shade(List<Object> lights, List<Object> objects, Color background) {
         return object.Shade(this, lights, objects, background);
     }
 
