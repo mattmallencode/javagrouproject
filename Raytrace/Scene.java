@@ -14,7 +14,7 @@ public class Scene {
 	static BufferedImage canvas;
 	static Vector3D eye, lookAt, up;
 	static Vector3D Du, Dv, Vp;
-	static float fov;
+	static float fieldOfView;
 	static Color background;
 	int width, height;
 
@@ -28,7 +28,7 @@ public class Scene {
 		this.width = width;
 		this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		fov = 30; // default horizontal field of view
+		fieldOfView = 30; // default horizontal field of view
 
 		eye = new Vector3D(0, 0, 10);
 		lookAt = new Vector3D(0, 0, 0);
@@ -84,7 +84,7 @@ public class Scene {
 	 * @param f			Value of the field of view.
 	 */
 	public final void setFov(float f) {
-		fov = f;
+		fieldOfView = f;
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class Scene {
 		Vector3D look = new Vector3D(lookAt.x - eye.x, lookAt.y - eye.y, lookAt.z - eye.z);
 		Du = Vector3D.normalize(look.cross(up));
 		Dv = Vector3D.normalize(look.cross(Du));
-		float fl = (float) (width / (2 * Math.tan((0.5 * fov) * Math.PI / 180)));
+		float fl = (float) (width / (2 * Math.tan((0.5 * fieldOfView) * Math.PI / 180)));
 		Vp = Vector3D.normalize(look);
 		Vp.x = Vp.x * fl - 0.5f * (width * Du.x + height * Dv.x);
 		Vp.y = Vp.y * fl - 0.5f * (width * Du.y + height * Dv.y);
