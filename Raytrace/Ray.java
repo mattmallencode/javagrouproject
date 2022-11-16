@@ -3,15 +3,15 @@ package Raytrace;
 import java.awt.*;
 import java.util.List;
 
-class Ray {
+
+public class Ray {
     private static final float MAX_T = Float.MAX_VALUE;
-    private Vector3D origin;
-
-
-    private Vector3D direction;
+    Vector3D origin;
+    Vector3D direction;
 
     private float t;
-    private Renderable object;
+    Renderable object;
+
 
     // getters and setters
 

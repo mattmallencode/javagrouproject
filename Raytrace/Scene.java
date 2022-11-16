@@ -106,7 +106,7 @@ public class Scene {
 	 * @param b         Blue
 	 */
 	public final void addAmbientLight(float r, float g, float b) {
-		lightList.add(new Light(Light.AMBIENT, null, r, g, b));
+		lightList.add(new Light(Light.getAMBIENT(), null, r, g, b));
 	}
 	/**
 	 * Add a direction light to the scene.
@@ -117,7 +117,7 @@ public class Scene {
 	 * @param v         position {@link Vector3D}
 	 */
 	public final void addDirectionalLight(float r, float g, float b, Vector3D v) {
-		lightList.add(new Light(Light.DIRECTIONAL, v, r, g, b));
+		lightList.add(new Light(Light.getDIRECTIONAL(), v, r, g, b));
 	}
 	/**
 	 * Add a point light to the scene.
@@ -128,7 +128,7 @@ public class Scene {
 	 * @param v         Position {@link Vector3D}
 	 */
 	public final void addPointLight(float r, float g, float b, Vector3D v) {
-		lightList.add(new Light(Light.POINT, v, r, g, b));
+		lightList.add(new Light(Light.getPOINT(), v, r, g, b));
 	}
 
 	/**

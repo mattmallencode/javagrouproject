@@ -48,14 +48,16 @@ public class Surface {
         float blue = 0;
         for (Object lightSources : lights) {
             Light light = (Light) lightSources;
-            if (light.getLightType() == Light.AMBIENT) {
+            if (light.getLightType() == Light.getAMBIENT()) {
                 red += ambientReflectionCoefficient * intrinsicRed *light.getIntensityRed();
                 green += ambientReflectionCoefficient * intrinsicGreen *light.getIntensityGreen();
                 blue += ambientReflectionCoefficient * intrinsicBlue *light.getIntensityBlue();
             } else {
                 Vector3D l;
-                if (light.getLightType() == Light.POINT) {
+
+                if (light.getLightType() == Light.getPOINT()) {
                     l = new Vector3D(light.getLightVector().getX() - p.getX(), light.getLightVector().getY() - p.getY(), light.getLightVector().getZ() - p.getZ());
+
                     l.normalize();
                 } else {
                     l = new Vector3D(-light.getLightVector().getX(), -light.getLightVector().getY(), -light.getLightVector().getZ());
