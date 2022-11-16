@@ -3,17 +3,29 @@ package Raytrace;
 // Testing pull request.
 
 class Light {
-    public static final int AMBIENT = 0;
-    public static final int DIRECTIONAL = 1;
-    public static final int POINT = 2;
+    private static final int AMBIENT = 0;
+    private static final int DIRECTIONAL = 1;
+    private static final int POINT = 2;
 
-    protected int lightType;
-    protected Vector3D lightVector;
-    protected float intensityRed;
-    protected float intensityGreen;
-    protected float intensityBlue;                // intensity of the light source
+    private int lightType;
+    private Vector3D lightVector;
+    private float intensityRed;
+    private float intensityGreen;
+    private float intensityBlue;                // intensity of the light source
 
     //getter and setters
+    public static int getAMBIENT(){
+        return AMBIENT;
+    }
+
+    public static int getDIRECTIONAL(){
+        return DIRECTIONAL;
+    }
+
+    public static int getPOINT(){
+        return POINT;
+    }
+
     public int getLightType() {
         return lightType;
     }
