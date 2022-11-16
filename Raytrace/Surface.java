@@ -67,7 +67,7 @@ public class Surface {
                 if (shadowRay.trace(objects))
                     break;
 
-                float lambert = Vector3D.dot(n,l);
+                float lambert = Vector3D.dotMultiplication(n,l);
                 if (lambert > 0) {
                     if (diffuseReflectionCoefficient > 0) {
                         float diffuse = diffuseReflectionCoefficient *lambert;
@@ -77,7 +77,7 @@ public class Surface {
                     }
                     if (specularReflectionCoefficient > 0) {
                         lambert *= 2;
-                        float spec = v.dot(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
+                        float spec = v.dotMultiplication(lambert*n.x - l.x, lambert*n.y - l.y, lambert*n.z - l.z);
                         if (spec > 0) {
                             spec = specularReflectionCoefficient *((float) Math.pow((double) spec, (double) phongExponent));
                             red += spec*light.getIntensityRed();
@@ -91,7 +91,7 @@ public class Surface {
 
         // Compute illumination due to reflection
         if (reflectanceCoefficient > 0) {
-            float t = v.dot(n);
+            float t = v.dotMultiplication(n);
             if (t > 0) {
                 t *= 2;
                 Vector3D reflect = new Vector3D(t*n.x - v.x, t*n.y - v.y, t*n.z - v.z);
