@@ -41,6 +41,7 @@ public class Sphere implements Renderable {
      * @param ray object which is to be tested
      * @return {@code true} if the check fails
      */
+    @Override
     public boolean intersect(Ray ray) {
         float dx = center.x - ray.origin.x;
         float dy = center.y - ray.origin.y;
@@ -65,7 +66,7 @@ public class Sphere implements Renderable {
     }
 
     /**
-     * Supplies critical bits of geometric information for a surface shader. It computes:
+     * Supplies critical bits of geometric information for a sphere shader. It computes:
      * <ol>
      *     <li>the point of intersection {@code pointOfIntersection}</li>
      *     <li>a unit-length surface normal {@code normalUnitLength}</li>
@@ -78,6 +79,7 @@ public class Sphere implements Renderable {
      * @param background color of the background
      * @return {@code surface.Shade} an illumination model
      */
+    @Override
     public Color Shade(Ray ray, java.util.List<Object> lights, List<Object> objects, Color background) {
 
         float px = ray.origin.x + ray.getT() * ray.direction.x;
