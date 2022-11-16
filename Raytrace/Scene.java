@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
-	final static int CHUNKSIZE = 100;
-	static List<Object> objectList;
-	static List<Object> lightList;
-	static BufferedImage canvas;
-	static Vector3D eye, lookAt, up;
-	static Vector3D Du, Dv, Vp;
-	static float fieldOfView;
-	static Color background;
-	int width, height;
+	private final static int CHUNKSIZE = 100;
+	private static List<Object> objectList;
+	private static List<Object> lightList;
+	private static BufferedImage canvas;
+	private static Vector3D eye, lookAt, up;
+	private static Vector3D Du, Dv, Vp;
+	private static float fieldOfView;
+	private static Color background;
+	private int width, height;
 
 	/**
 	 * Initialize a scene with default configuration.
