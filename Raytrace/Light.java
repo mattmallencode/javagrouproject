@@ -43,7 +43,7 @@ class Light {
      * @param g         Intensity of green colour
      * @param b         Intensity of blue colour
      */
-    public Light(int type, Vector3D v, float r, float g, float b) {
+    Light(int type, Vector3D v, float r, float g, float b) {
         lightType = type;
         intensityRed = r;
         intensityGreen = g;
