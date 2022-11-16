@@ -1,4 +1,4 @@
-package Raytrace;
+package cs3318.group22.raytrace.src.Raytrace;
 
 // Testing pull request.
 

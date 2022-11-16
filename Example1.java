@@ -1,6 +1,7 @@
-import Raytrace.*;
-import Raytrace.Surface;
-import Raytrace.Vector3D;
+import cs3318.group22.raytrace.src.Raytrace.Scene;
+import cs3318.group22.raytrace.src.Raytrace.Surface;
+import cs3318.group22.raytrace.src.Raytrace.Vector3D;
+
 import java.io.IOException;
 
 public class Example1 {
