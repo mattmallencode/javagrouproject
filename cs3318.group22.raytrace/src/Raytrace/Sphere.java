@@ -6,7 +6,7 @@ import java.util.List;
 // An example "Renderable" object
 
 /**
- * An instance of Renderable
+ * A class representing a Sphere.
  *
  */
 public class Sphere implements Renderable {

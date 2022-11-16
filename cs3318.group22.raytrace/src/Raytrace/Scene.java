@@ -6,7 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * A class representing a Raytracing Scene.
+ *
+ */
 public class Scene {
 	private final static int CHUNK_SIZE = 100;
 	private static List<Object> objectList;

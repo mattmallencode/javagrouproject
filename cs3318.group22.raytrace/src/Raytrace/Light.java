@@ -2,6 +2,10 @@ package cs3318.group22.raytrace.src.Raytrace;
 
 // Testing pull request.
 
+/**
+ * A class representing a light.
+ *
+ */
 class Light {
     private static final int AMBIENT = 0;
     private static final int DIRECTIONAL = 1;

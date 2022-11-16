@@ -3,7 +3,10 @@ package cs3318.group22.raytrace.src.Raytrace;
 import java.awt.*;
 import java.util.List;
 
-
+/**
+ * A class representing a Ray.
+ *
+ */
 public class Ray {
     private static final float MAX_T = Float.MAX_VALUE;
     Vector3D origin;

@@ -1,6 +1,9 @@
 package cs3318.group22.raytrace.src.Raytrace;
 
-
+/**
+ * A class representing a surface.
+ *
+ */
 import java.awt.*;
 import java.util.List;
 
