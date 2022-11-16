@@ -18,9 +18,9 @@ public class Sphere implements Renderable {
     }
 
     public boolean intersect(Ray ray) {
-        float dx = center.x - ray.origin.x;
-        float dy = center.y - ray.origin.y;
-        float dz = center.z - ray.origin.z;
+        float dx = center.getX() - ray.origin.getX();
+        float dy = center.getY() - ray.origin.getY();
+        float dz = center.getZ() - ray.origin.getZ();
         float v = ray.direction.dot(dx, dy, dz);
 
         // Do the following quick check to see if there is even a chance
@@ -53,13 +53,13 @@ public class Sphere implements Renderable {
         //   2. a unit-length surface normal (n)
         //   3. a unit-length vector towards the ray's origin (v)
         //
-        float px = ray.origin.x + ray.getT() * ray.direction.x;
-        float py = ray.origin.y + ray.getT() * ray.direction.y;
-        float pz = ray.origin.z + ray.getT() * ray.direction.z;
+        float px = ray.origin.getX() + ray.getT() * ray.direction.getX();
+        float py = ray.origin.getY() + ray.getT() * ray.direction.getY();
+        float pz = ray.origin.getZ() + ray.getT() * ray.direction.getZ();
 
         Vector3D p = new Vector3D(px, py, pz);
-        Vector3D v = new Vector3D(-ray.direction.x, -ray.direction.y, -ray.direction.z);
-        Vector3D n = new Vector3D(px - center.x, py - center.y, pz - center.z);
+        Vector3D v = new Vector3D(-ray.direction.getX(), -ray.direction.getY(), -ray.direction.getZ());
+        Vector3D n = new Vector3D(px - center.getX(), py - center.getY(), pz - center.getZ());
         n.normalize();
 
         // The illumination model is applied
