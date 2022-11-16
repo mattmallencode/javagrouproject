@@ -14,7 +14,7 @@ public class Scene {
 	static BufferedImage canvas;
 	static Vector3D eye, lookAt, up;
 	static Vector3D Du, Dv, Vp;
-	static float fov;
+	static float fieldOfView;
 	static Color background;
 	int width, height;
 
@@ -28,7 +28,7 @@ public class Scene {
 		this.width = width;
 		this.height = height;
 		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		fov = 30; // default horizontal field of view
+		fieldOfView = 30; // default horizontal field of view
 
 		eye = new Vector3D(0, 0, 10);
 		lookAt = new Vector3D(0, 0, 0);
@@ -84,7 +84,7 @@ public class Scene {
 	 * @param f			Value of the field of view.
 	 */
 	public final void setFov(float f) {
-		fov = f;
+		fieldOfView = f;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Scene {
 	 * @param filePath			File path to store the output image file.
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage(String filePath) throws IOException {
+	public final void saveRenderedImage(String filePath) throws IOException {
 		BufferedImage img = canvas;
 		File f = new File(filePath);
 		ImageIO.write(img, "PNG", f);
@@ -149,7 +149,7 @@ public class Scene {
 	 *
 	 * @throws IOException		If unable to write file to specified location in the file system.
 	 */
-	public void saveRenderedImage() throws IOException {
+	public final void saveRenderedImage() throws IOException {
 		BufferedImage img = canvas;
 		File f = new File("./out.png");
 		ImageIO.write(img, "PNG", f);
@@ -159,12 +159,12 @@ public class Scene {
 	/**
 	 * Take all the configurations and render the scene to the image.
 	 */
-	public void renderImage() {
+	public final void renderImage() {
 		// Compute viewing matrix that maps a screen coordinate to a ray direction
 			Vector3D look = new Vector3D(lookAt.getX() - eye.getX(), lookAt.getY() - eye.getY(), lookAt.getZ() - eye.getZ());
 		Du = Vector3D.normalize(look.cross(up));
 		Dv = Vector3D.normalize(look.cross(Du));
-		float fl = (float) (width / (2 * Math.tan((0.5 * fov) * Math.PI / 180)));
+		float fl = (float) (width / (2 * Math.tan((0.5 * fieldOfView) * Math.PI / 180)));
 		Vp = Vector3D.normalize(look);
 		Vp.setX(Vp.getX() * fl - 0.5f * (width * Du.getX() + height * Dv.getX()));
 		Vp.setY(Vp.getY() * fl - 0.5f * (width * Du.getY() + height * Dv.getY()));
@@ -178,9 +178,9 @@ public class Scene {
 	}
 
 	/**
-	 * Render a particular pixel
-	 * @param i x-axis position of the pixel to be rendered
-	 * @param j	x-axis position of the pixel to be rendered
+	 * Render a particular pixel.
+	 * @param i		x-axis position of the pixel to be rendered
+	 * @param j		x-axis position of the pixel to be rendered
 	 */
 	private void renderPixel(int i, int j) {
 		Vector3D dir = new Vector3D(

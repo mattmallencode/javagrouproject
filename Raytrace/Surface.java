@@ -9,7 +9,7 @@ public class Surface {
     private float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
     private float transmissionCoefficient, reflectanceCoefficient, nt;
     private static final float TINY = 0.001f;
-    private static final float oneOver255 = 0.00392156f;  // 1/255
+    private static final float ONE_OVER_255 = 0.00392156f;  // 1/255
 
     /**
      * Constructor for the Surface class.
@@ -27,8 +27,8 @@ public class Surface {
      */
     public Surface(float redValue, float greenValue, float blueValue, float ambientReflection, float diffuseReflection, float specularReflection, float phongExp, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
-        ambientReflectionCoefficient = ambientReflection; diffuseReflectionCoefficient = diffuseReflection; specularReflectionCoefficient = specularReflection; phongExponent = phongExp;
-        reflectanceCoefficient = reflectance* oneOver255; transmissionCoefficient = transmission; nt = index;
+        ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
+        reflectanceCoefficient = reflectance* ONE_OVER_255; transmissionCoefficient = transmission; nt = index;
     }
 
     /**
