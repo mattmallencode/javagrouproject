@@ -50,18 +50,18 @@ class Light {
      * Initialises light with constructor parameters.
      *
      * @param type      Value of light type
-     * @param v         The position of a point light or the direction to a directional light
-     * @param r         Intensity of red colour
-     * @param g         Intensity of green colour
-     * @param b         Intensity of blue colour
+     * @param vector    The position of a point light or the direction to a directional light
+     * @param redValue  Intensity of red colour
+     * @param greenValue         Intensity of green colour
+     * @param blueValue         Intensity of blue colour
      */
-    Light(int type, Vector3D v, float r, float g, float b) {
+    Light(int type, Vector3D vector, float redValue, float greenValue, float blueValue) {
         lightType = type;
-        intensityRed = r;
-        intensityGreen = g;
-        intensityBlue = b;
+        intensityRed = redValue;
+        intensityGreen = greenValue;
+        intensityBlue = blueValue;
         if (type != AMBIENT) {
-            lightVector = v;
+            lightVector = vector;
             if (type == DIRECTIONAL) {
                 lightVector.normalize();
             }
