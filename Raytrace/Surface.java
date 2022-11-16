@@ -4,14 +4,6 @@ package Raytrace;
 import java.awt.*;
 import java.util.List;
 
-/*
-ka =  ambient reflection coefficient
-kd = diffuse reflection coefficient
-ks = specular reflection coefficient
-kt = transmission coefficient
-kr = reflectance coefficient
-ns phong exponent
- */
 public class Surface {
     protected float intrinsicRed, intrinsicGreen, intrinsicBlue;        // surface's intrinsic color
     protected float ambientReflectionCoefficient, diffuseReflectionCoefficient, specularReflectionCoefficient, phongExponent;    // constants for phong model
@@ -19,15 +11,37 @@ public class Surface {
     private static final float TINY = 0.001f;
     private static final float ONE_OVER_255 = 0.00392156f;  // 1/255
 
-
-
-
-    public Surface(float redValue, float greenValue, float blueValue, float ambient, float diffuse, float specular, float n, float reflectance, float transmission, float index) {
+    /**
+     * Constructor for the Surface class.
+     *
+     * @param redValue degree of red colour in the Surface.
+     * @param greenValue degree of green colour in the Surface.
+     * @param blueValue degree of blueValue in the Surface.
+     * @param ambientReflection amount of ambient light reflected from Surface.
+     * @param diffuseReflection amount of diffuse reflection from Surface.
+     * @param specularReflection amount of specular reflection from Surface.
+     * @param phongExp - phong exponent of the Surface.
+     * @param reflectance - amount of reflectance from Surface.
+     * @param transmission - probability of light passing through the Surface.
+     * @param index - the index of the Surface.
+     */
+    public Surface(float redValue, float greenValue, float blueValue, float ambientReflection, float diffuseReflection, float specularReflection, float phongExp, float reflectance, float transmission, float index) {
         intrinsicRed = redValue; intrinsicGreen = greenValue; intrinsicBlue = blueValue;
         ambientReflectionCoefficient = ambient; diffuseReflectionCoefficient = diffuse; specularReflectionCoefficient = specular; phongExponent = n;
         reflectanceCoefficient = reflectance* ONE_OVER_255; transmissionCoefficient = transmission; nt = index;
     }
 
+    /**
+     * Function to apply the illumination model.
+     *
+     * @param p p
+     * @param n n
+     * @param v v
+     * @param lights the list of Lights.
+     * @param objects the list of Objects.
+     * @param background the background color.
+     * @return colour with the illumination model applied.
+     */
     Color Shade(Vector3D p, Vector3D n, Vector3D v, java.util.List<Object> lights, List<Object> objects, Color background) {
         float red = 0;
         float green = 0;
@@ -109,4 +123,3 @@ public class Surface {
         return new Color(red, green, blue);
     }
 }
-
