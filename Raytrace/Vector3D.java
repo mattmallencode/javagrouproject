@@ -55,7 +55,7 @@ public class Vector3D {
      *
      * @return the coordinates of this vector dot multiplied with the coordinates of the other vector.
      */
-    final float dotMultiplication(Vector3D B) {
+    public final float dotMultiplication(Vector3D B) {
         return (x*B.x + y*B.y + z*B.z);
     }
 
@@ -68,7 +68,7 @@ public class Vector3D {
      *
      * @return the coordinates of this vector dot multiplied with the input coordinates.
      */
-    final float dotMultiplication(float Bx, float By, float Bz) {
+    public final float dotMultiplication(float Bx, float By, float Bz) {
         return (x*Bx + y*By + z*Bz);
     }
 
@@ -80,7 +80,7 @@ public class Vector3D {
      *
      * @return the coordinates of both vectors dot multiplied.
      */
-    static float dotMultiplication(Vector3D A, Vector3D B) {
+    public static float dotMultiplication(Vector3D A, Vector3D B) {
         return (A.x*B.x + A.y*B.y + A.z*B.z);
     }
 
@@ -91,7 +91,7 @@ public class Vector3D {
      *
      * @return the cross product of this vector and vector B.
      */
-    final Vector3D cross(Vector3D B) {
+    public final Vector3D cross(Vector3D B) {
         return new Vector3D(y*B.z - z*B.y, z*B.x - x*B.z, x*B.y - y*B.x);
     }
 
