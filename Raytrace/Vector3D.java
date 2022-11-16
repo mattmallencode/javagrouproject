@@ -125,7 +125,7 @@ public class Vector3D {
      *
      * @return the length of this vector.
      */
-    public final float length( ) {
+    public final float getVectorLength( ) {
         return (float) Math.sqrt(x*x + y*y + z*z);
     }
 
@@ -136,7 +136,7 @@ public class Vector3D {
      *
      * @return the length of Vector3D A.
      */
-    static float length(Vector3D A) {
+    static float getVectorLength(Vector3D A) {
         return (float) Math.sqrt(A.x*A.x + A.y*A.y + A.z*A.z);
     }
 
