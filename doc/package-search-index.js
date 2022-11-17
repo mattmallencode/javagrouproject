@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cs3318.group22.raytrace.src.Raytrace"}];updateSearchResults();
