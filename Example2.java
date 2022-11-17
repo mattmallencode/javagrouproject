@@ -10,7 +10,7 @@ public class Example2 {
         Scene s = new Scene(6000, 6000);
         s.setEye(new Vector3D(1.5F, 10.5F, -1.5F));
         s.setLookAt(new Vector3D(-0.5F, 0F, -0.5F));
-        s.setFov(30);
+        s.setFov(15);
         s.setBackground(0.9F, 0.9F, 0.9F);
 
         s.addAmbientLight(1.0F, 1.0F, 0.981F);
